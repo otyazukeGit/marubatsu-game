@@ -3,8 +3,11 @@ import styled from 'styled-components'
 import { TextInput } from './UIkit/TextInput'
 import { PrimaryButton } from './UIkit/PrimaryButton'
 import { auth, FirebaseTimestamp } from './firebase/index'
+import { useHistory } from 'react-router-dom'
 
 export const SignUp = () => {
+	// TODO: commonality
+	const history = useHistory()
 	const [userName, setUserName]: [string, React.Dispatch<React.SetStateAction<string>>] = useState<string>(""),
 		[email, setEmail]: [string, React.Dispatch<React.SetStateAction<string>>] = useState<string>(""),
 		[password, setPassword]: [string, React.Dispatch<React.SetStateAction<string>>] = useState<string>(""),
@@ -39,13 +42,13 @@ export const SignUp = () => {
 			/>
 			<PrimaryButton
 				label={"Create  Account"}
-				onClick={() => authSignUp(userName, email, password, confirmPassword)}
+				onClick={() => authSignUp(userName, email, password, confirmPassword, history)}
 			/>
 		</Container>
 	)
 }
 
-const authSignUp = async (userName: string, email: string, password: string, confirmPassword: string) => {
+const authSignUp = async (userName: string, email: string, password: string, confirmPassword: string, history:any) => {
 	console.log('authSignUp');
 	console.log('userName: ', userName);
 	//Validation
@@ -78,11 +81,13 @@ const authSignUp = async (userName: string, email: string, password: string, con
 					userName: userName
 				}
 
-				// TODO DB登録
+				// transition to Marubatsu page.
+				history.push('/marubatsu')
 
 			}
 		}).catch(error => {
 			console.log('Sign Up error');
+			console.log('error: ', error);
 			return false
 		})
 	console.log('end');

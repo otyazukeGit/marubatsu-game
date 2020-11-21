@@ -1,23 +1,23 @@
-import React from 'react'
-import { useHistory } from "react-router-dom";
+import React, {useEffect} from 'react'
+// import { useHistory } from "react-router-dom";
 import styled from 'styled-components'
-import * as firebase from "firebase/app";
+// import * as firebase from "firebase/app";
 // import "firebase/auth";
 // import "firebase/firestore";
 
 export const Marubatsu:React.FC = () => {
 	const selectedItems = [1,0,0 , 0,1,0 , 0,0,1]
-	const history = useHistory()
-	React.useEffect(
-		() => {
-			// No Auth
-			history.push('/')
-		}
-		, []
-	)
+	// const history = useHistory()
+	// React.useEffect(
+	// 	() => {
+	// 		// No Auth
+	// 		history.push('/')
+	// 	}
+	// 	, []
+	// )
+
 	return (
 		<Container>
-			<h1>Marubatsu Game</h1>
 			<Area>
 				{selectedItems.map((item, index) => (
 					<Box key={index}>{item}</Box>

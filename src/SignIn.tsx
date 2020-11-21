@@ -28,7 +28,7 @@ export const SignIn = () => {
 			<ButtonArea>
 				<PrimaryButton
 					label={"Sign In"}
-					onClick={() => authSignIn(email, password)}
+					onClick={() => authSignIn(email, password, history)}
 				/>
 				<Button aria-controls="simple-menu" aria-haspopup="true" onClick={() => history.push('/signup')}>Sign Up</Button>
 			</ButtonArea>
@@ -36,7 +36,7 @@ export const SignIn = () => {
 	)
 }
 
-const authSignIn = async (email: string, password: string) => {
+const authSignIn = async (email: string, password: string, history:any) => {
 	//Validation
 	if (email === '' || password === '') {
 		alert('Please fill out the required informations.')
@@ -44,7 +44,9 @@ const authSignIn = async (email: string, password: string) => {
 	}
 	// TODO if Password Pattern
 
+	
 	// Sign In
+	// const history = useHistory()
 	await auth.signInWithEmailAndPassword(email, password)
 		.then(result => {
 			console.log('Response auth Sign In');
@@ -53,6 +55,9 @@ const authSignIn = async (email: string, password: string) => {
 			if (user) {
 				const uid = user.uid
 				const timestamp = FirebaseTimestamp.now()
+
+				// transition to Marubatsu page.
+				history.push('/marubatsu')
 			}
 		}).catch(error => {
 			console.log('Sign In error');

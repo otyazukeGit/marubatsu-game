@@ -4,19 +4,20 @@ import {
 	Switch,
 	Route,
 	Link
- } from "react-router-dom"
+} from "react-router-dom"
 // import './App.css';
-import {Home} from './Home'
-import {Header} from './Header'
-import {SignUp} from './SignUp'
-import {SignIn} from './SignIn'
+// import { Home } from './Home'
+import { Header } from './Header'
+import { SignUp } from './SignUp'
+import { SignIn } from './SignIn'
+import { Auth } from './Auth'
 import { Marubatsu } from './Marubatsu';
 
 function App() {
 	return (
 		<div>
 			<Router>
-				<Header/>
+				<Header />
 				<Switch>
 					<Route path="/" exact>
 						<SignIn />
@@ -24,9 +25,11 @@ function App() {
 					<Route path="/signup" exact>
 						<SignUp />
 					</Route>
-					<Route path="/marubatsu" exact>
-						<Marubatsu></Marubatsu>
-					</Route>
+					<Auth>
+						<Route path="/marubatsu" exact>
+							<Marubatsu></Marubatsu>
+						</Route>
+					</Auth>
 				</Switch>
 			</Router>
 		</div>
