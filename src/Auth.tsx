@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react'
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
+import {useTransition} from './UIkit/Routing'
 import { auth } from './firebase/index'
 
 export const Auth = ({ children }: any) => {
 
-	const history = useHistory()
+	// const history = useHistory()
 
-	// const isSigned: boolean = true
 	const authUser = auth.currentUser
-	console.log('authUser: ', authUser);
+	// console.log('authUser: ', authUser);
 
 	useEffect(
 		() => {
@@ -19,7 +19,7 @@ export const Auth = ({ children }: any) => {
 						// TODO: do store the auth status after SignIn
 
 					} else {
-						history.push("/")
+						useTransition("/")
 					}
 				})
 			}

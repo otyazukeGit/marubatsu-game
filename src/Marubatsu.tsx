@@ -7,20 +7,14 @@ import styled from 'styled-components'
 
 export const Marubatsu:React.FC = () => {
 	const selectedItems = [1,0,0 , 0,1,0 , 0,0,1]
-	// const history = useHistory()
-	// React.useEffect(
-	// 	() => {
-	// 		// No Auth
-	// 		history.push('/')
-	// 	}
-	// 	, []
-	// )
 
 	return (
 		<Container>
 			<Area>
 				{selectedItems.map((item, index) => (
-					<Box key={index}>{item}</Box>
+					
+					// <Box key={index}>{item}</Box>
+					<Box key={index}>{item == 1 ? '○' : '✕'}</Box>
 				))}
 			</Area>
 		</Container>
@@ -47,4 +41,5 @@ const Box = styled.div`
 	border: solid 1px #2792c3;
 	justify-content: center;
 	align-items: center;
+	font-size: large;
 `
