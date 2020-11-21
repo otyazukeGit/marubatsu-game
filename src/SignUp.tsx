@@ -63,7 +63,7 @@ const authSignUp = async (userName: string, email: string, password: string, con
 	await auth.createUserWithEmailAndPassword(email, password)
 		.then(result => {
 			console.log('Response auth Sign Up');
-			console.log('result: ', result);
+			// console.log('result: ', result);
 			const user = result.user
 			if (user) {
 				const uid = user.uid
