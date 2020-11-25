@@ -1,7 +1,7 @@
 import {initialStateType} from './initialState'
-import {SelectItem, SetResultMessage} from './actions'
+import {SelectItemType, SetResultMessage} from './actions'
 
-type actionType = SelectItem | SetResultMessage  // | .. | ..
+type actionType = SelectItemType | SetResultMessage  // | .. | ..
 
 
 export const reducer = (state: initialStateType, action: actionType) => {

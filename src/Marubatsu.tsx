@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { initialState } from './redux/initialState'
 import { reducer } from './redux/reducer'
 import {selectItem, setResultMessage} from './redux/actions'
+import {MarubatsuBox} from './MarubatsuBox'
 // import * as firebase from "firebase/app";
 // import "firebase/auth";
 // import "firebase/firestore";
@@ -15,6 +16,10 @@ export const Marubatsu:React.FC = () => {
 	console.log('cnt: ', selectCnt);
 	// console.log('state: ', state);
 	const itemType = selectCnt % 2 === 0 ? 'circle' : 'cross'
+
+	const choosePosition = (index: number) => {
+		dispatch(selectItem(index, itemType))
+	}
 
 	// let resultMessage = 'a'
 	useEffect(
@@ -48,14 +53,21 @@ export const Marubatsu:React.FC = () => {
 		)
 
 	return (
-		<Container key={"1000"}>
+		<Container>
 			{state.resultMessaage}
-			<Area key={"100"}>
+			<Area>
 				{state.selectedItems.map((item:string, index:number) => (
 					// <Box key={index} onClick={() => setSelectedItems(prev => prev.splice(index,1,1))}>{item == 1 ? '○' : '✕'}</Box>
-					<Box key={index} onClick={() => dispatch(selectItem(index, itemType))}>
+					<MarubatsuBox 
+						key={index} 
+						index={index}
+						// onClick={() => dispatch(selectItem(index, itemType))
+						// dispatch={dispatch}
+						choosePosition={choosePosition}
+						selected={true}
+					>
 						{item}
-					</Box>
+					</MarubatsuBox>
 				))}
 			</Area>
 		</Container>
@@ -116,10 +128,4 @@ const Area = styled.div`
 	;
 	/* grid-gap: 1px; */
 `
-const Box = styled.div`
-	display: flex;
-	border: solid 1px #2792c3;
-	justify-content: center;
-	align-items: center;
-	font-size: 32px;
-`
+
