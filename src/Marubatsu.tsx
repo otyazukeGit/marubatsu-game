@@ -1,7 +1,7 @@
 import React, {useEffect, useReducer, useState} from 'react'
 // import { useHistory } from "react-router-dom";
 import styled from 'styled-components'
-import { initialState } from './redux/initialState'
+import { initialState, SelectItemsType } from './redux/initialState'
 import { reducer } from './redux/reducer'
 import {selectItem, setResultMessage} from './redux/actions'
 import {MarubatsuBox} from './MarubatsuBox'
@@ -12,12 +12,13 @@ import {MarubatsuBox} from './MarubatsuBox'
 export const Marubatsu:React.FC = () => {
 	console.log('==========================================');
 	const [state, dispatch] = useReducer(reducer, initialState)
-	const selectCnt = state.selectedItems.filter(v => v !== '').length
+	const selectCnt = state.selectedItems.filter(v => v.item !== '').length
 	console.log('cnt: ', selectCnt);
 	// console.log('state: ', state);
 	const itemType = selectCnt % 2 === 0 ? 'circle' : 'cross'
 
-	const choosePosition = (index: number) => {
+	const choosePosition = (selected: boolean, index: number) => {
+		if(selected) return
 		dispatch(selectItem(index, itemType))
 	}
 
@@ -56,17 +57,16 @@ export const Marubatsu:React.FC = () => {
 		<Container>
 			{state.resultMessaage}
 			<Area>
-				{state.selectedItems.map((item:string, index:number) => (
-					// <Box key={index} onClick={() => setSelectedItems(prev => prev.splice(index,1,1))}>{item == 1 ? '○' : '✕'}</Box>
+				{/* {state.selectedItems.map((item:string, index:number) => ( */}
+				{state.selectedItems.map((items:SelectItemsType, index:number) => (
 					<MarubatsuBox 
 						key={index} 
 						index={index}
-						// onClick={() => dispatch(selectItem(index, itemType))
-						// dispatch={dispatch}
 						choosePosition={choosePosition}
-						selected={true}
+						selected={items.selected}
+						itemType={items.itemType}
 					>
-						{item}
+						{items.item}
 					</MarubatsuBox>
 				))}
 			</Area>
@@ -76,13 +76,13 @@ export const Marubatsu:React.FC = () => {
 
 const positionNumbers = [1, 2, 4, 8, 16, 32, 64, 128, 256]
 
-const checkResult = (selectedItems: string[], itemType: string) => {
+const checkResult = (selectedItems: SelectItemsType[], itemType: string) => {
 	console.log('checkResult() ----------------');
 	console.log('selectedItems: ', selectedItems);
 	console.log('itemType: ', itemType);
 
 	const itemValue = itemType === 'circle' ? '○' : '✕'
-	const selectedPosition = selectedItems.map((v, i) => v === itemValue ? positionNumbers[i] : 0)
+	const selectedPosition = selectedItems.map((v, i) => v.item === itemValue ? positionNumbers[i] : 0)
 	console.log('selectedPosition: ', selectedPosition);
 
 	// rows
@@ -99,13 +99,13 @@ const checkResult = (selectedItems: string[], itemType: string) => {
 	return false
 }
 
-const toggleItem = (selectedItems:any, setSelectedItems:any, index:number) => {
-	let newItems = selectedItems
-	console.log('newItems: ', newItems);
-	newItems.splice(index, 1, 1)
-	console.log('newItems: ', newItems);
-	setSelectedItems(newItems)
-}
+// const toggleItem = (selectedItems:any, setSelectedItems:any, index:number) => {
+// 	let newItems = selectedItems
+// 	console.log('newItems: ', newItems);
+// 	newItems.splice(index, 1, 1)
+// 	console.log('newItems: ', newItems);
+// 	setSelectedItems(newItems)
+// }
 
 // const BoxField = (props:any) => {
 // 	return <div></div>

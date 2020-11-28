@@ -1,20 +1,22 @@
-import React, { Dispatch, FC } from 'react'
+import React from 'react'
 import styled, {css} from 'styled-components'
-// import {selectItem, SelectItemType} from './redux/actions'
+import {Colors} from './Colors'
 
 type Props = {
 	key: number,
 	index: number,
-	// dispatch: React.Dispatch<SelectItemType>,
-	choosePosition:(index: number) => void,
+	choosePosition:(selected: boolean, index: number) => void,
 	selected: boolean,
-	// children: string,  // React.FC include children?: React.ReactNode
+	itemType: ''|'circle'|'cross'
 }
 
 export const MarubatsuBox:React.FC<Props> = (props) => {
 
 	return (
-	<Box selected={true} onClick={() => props.choosePosition(props.index)}>
+	<Box 
+		selected={props.selected} 
+		bg_color={Colors[props.itemType]}
+		onClick={() => props.choosePosition(props.selected, props.index)}>
 		{props.children}
 	</Box>
 	)
@@ -22,16 +24,24 @@ export const MarubatsuBox:React.FC<Props> = (props) => {
 
 // const Container = styled.div<{ visibleWeek: boolean}>`
 // 	display: ${props => ( props.visibleWeek ? 'flex' : 'none!important' )};
-const Box = styled.div<{selected: boolean}>`
+const Box = styled.div<{selected: boolean, bg_color: string}>`
 	display: flex;
-	border: solid 1px #2792c3;
+	/* background-color: ${props => props.itemType === 'circle' ? "#2792c3" : "#2792c3"}; */
+	background-color: ${props => props.bg_color};
+	border: solid 1px black;
 	justify-content: center;
 	align-items: center;
 	font-size: 32px;
-	${props => props.selected && css`
+	${props => props.selected ? css`
+		&:hover {
+			cursor: not-allowed;
+		}
+	` : `
 		&:hover {
 			background-color: #c1e4e9;
+			cursor: pointer;
 		}
 	`}
-
 `
+
+
