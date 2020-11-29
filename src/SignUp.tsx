@@ -21,29 +21,31 @@ export const SignUp = () => {
 		<Container>
 			<h1> Sign Up</h1>
 			<TextInput
-				fullWidth={true} label={'User Name'} multiline={false}
+				fullWidth={false} width={300} label={'User Name'} multiline={false}
 				required={true} rows={1} value={userName} type={"text"}
 				onChange={inputUserName}
 			/>
 			<TextInput
-				fullWidth={true} label={'Email'} multiline={false}
+				fullWidth={false} width={300} label={'Email'} multiline={false}
 				required={true} rows={1} value={email} type={"email"} placeholder={"aa"}
 				onChange={(e: { target: { value: React.SetStateAction<string> } }) => setEmail(e.target.value)}
 			/>
 			<TextInput
-				fullWidth={true} label={'Password (at least 6 characters)'} multiline={false}
+				fullWidth={false} width={300} label={'Password (at least 6 characters)'} multiline={false}
 				required={true} rows={1} value={password} type={"password"}
 				onChange={(e: { target: { value: React.SetStateAction<string> } }) => setPassword(e.target.value)}
 			/>
 			<TextInput
-				fullWidth={true} label={'Confirm Password (at least 6 characters)'} multiline={false}
+				fullWidth={false} width={300} label={'Confirm Password (at least 6 characters)'} multiline={false}
 				required={true} rows={1} value={confirmPassword} type={"password"}
 				onChange={(e: { target: { value: React.SetStateAction<string> } }) => setConfirmPassword(e.target.value)}
 			/>
-			<PrimaryButton
-				label={"Create  Account"}
-				onClick={() => authSignUp(userName, email, password, confirmPassword, history)}
-			/>
+			<ButtonArea>
+				<PrimaryButton
+					label={"Create  Account"}
+					onClick={() => authSignUp(userName, email, password, confirmPassword, history)}
+				/>
+			</ButtonArea>
 		</Container>
 	)
 }
@@ -97,9 +99,13 @@ const authSignUp = async (userName: string, email: string, password: string, con
 const Container = styled.div`
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 	height: 100%;
 	width: 80%;
 	margin: 0 auto;
+`
+const ButtonArea = styled.div`
+	margin: 30px auto;
 `
 
 

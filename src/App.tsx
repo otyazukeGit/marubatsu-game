@@ -12,10 +12,11 @@ import { SignUp } from './SignUp'
 import { SignIn } from './SignIn'
 import { Auth } from './Auth'
 import { Marubatsu } from './Marubatsu';
+import styled from 'styled-components'
 
 function App() {
 	return (
-		<div>
+		<Container>
 			<Router>
 				<Header />
 				<Switch>
@@ -32,8 +33,13 @@ function App() {
 					</Auth>
 				</Switch>
 			</Router>
-		</div>
+		</Container>
 	)
 }
+
+const Container = styled.div`
+	min-height: 100vh;
+	margin: 0;
+`
 
 export default App;

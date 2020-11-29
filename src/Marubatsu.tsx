@@ -1,20 +1,16 @@
 import React, {useEffect, useReducer, useState} from 'react'
-// import { useHistory } from "react-router-dom";
 import styled from 'styled-components'
 import { initialState, SelectItemsType } from './redux/initialState'
 import { reducer } from './redux/reducer'
-import {selectItem, setResultMessage} from './redux/actions'
+import {selectItem, setResult} from './redux/actions'
 import {MarubatsuBox} from './MarubatsuBox'
-// import * as firebase from "firebase/app";
-// import "firebase/auth";
-// import "firebase/firestore";
+import {Pane} from './Pane'
 
 export const Marubatsu:React.FC = () => {
-	console.log('==========================================');
 	const [state, dispatch] = useReducer(reducer, initialState)
 	const selectCnt = state.selectedItems.filter(v => v.item !== '').length
 	console.log('cnt: ', selectCnt);
-	// console.log('state: ', state);
+	console.log('state.finish: ', state.finish);
 	const itemType = selectCnt % 2 === 0 ? 'circle' : 'cross'
 
 	const choosePosition = (selected: boolean, index: number) => {
@@ -22,68 +18,46 @@ export const Marubatsu:React.FC = () => {
 		dispatch(selectItem(index, itemType))
 	}
 
-	// let resultMessage = 'a'
 	useEffect(
 		() => {
-			console.log('useEffect()');
-			console.log('itemType: ', itemType);
 			let result
-			// if(selectCnt > 0){
-				// resultMessage = 'b'
-				const checkItemType = selectCnt % 2 !== 0 ? 'circle' : 'cross'
-				result = checkResult(state.selectedItems, checkItemType)
-				// result = checkResult(state.selectedItems, itemType)
-				console.log('result: ', result);
-				// const player = itemType === 'circle' ? 'Player 1' : 'Player 2'
-				const player = checkItemType === 'circle' ? 'Player 1' : 'Player 2'
-				// if(result) alert(player + ' Won!')
-				if(result) dispatch(setResultMessage(player + ' Won!'))
-			// }
+			const checkItemType = selectCnt % 2 !== 0 ? 'circle' : 'cross'
+			result = checkResult(state.selectedItems, checkItemType)
+			const player = checkItemType === 'circle' ? 'Player 1' : 'Player 2'
+			if(result) dispatch(setResult(player + ' Won!'))
 		}
-		// , [selectCnt, state.selectedItems, itemType, dispatch, setResultMessage]  // OK all
-		// , [           state.selectedItems, itemType, dispatch, setResultMessage]  // OK 1
-		// , [selectCnt,                      itemType, dispatch, setResultMessage]  // OK 1
-		// , [selectCnt, state.selectedItems,           dispatch, setResultMessage]  // OK 1
-		// , [selectCnt, state.selectedItems, itemType,           setResultMessage]  // OK 1
-		// , [selectCnt, state.selectedItems, itemType, dispatch                  ]  // OK 1
-		// , [           state.selectedItems,           dispatch, setResultMessage]  // NG 2
-		// , [selectCnt, state.selectedItems,                     setResultMessage]  // OK 2
-		// , [selectCnt, state.selectedItems                                      ]  // OK 3 
-		// , [           state.selectedItems,                     setResultMessage]  // NG 3  -> selectCnt 必須っぽい
-		, [selectCnt                                      ]  // OK 4 selectCntだけで検知. 確かにレンダリングで変わっているけど。state変更拾えていない？
+		, [selectCnt]
 		)
 
 	return (
-		<Container>
-			{state.resultMessaage}
-			<Area>
-				{/* {state.selectedItems.map((item:string, index:number) => ( */}
-				{state.selectedItems.map((items:SelectItemsType, index:number) => (
-					<MarubatsuBox 
-						key={index} 
-						index={index}
-						choosePosition={choosePosition}
-						selected={items.selected}
-						itemType={items.itemType}
-					>
-						{items.item}
-					</MarubatsuBox>
-				))}
-			</Area>
-		</Container>
+		<div>
+			<Pane finish={state.finish} msg={state.resultMessaage}></Pane>
+			<Container className="Container">
+
+				{/* {state.resultMessaage} */}
+				<Area>
+					{state.selectedItems.map((items:SelectItemsType, index:number) => (
+						<MarubatsuBox 
+							key={index} 
+							index={index}
+							choosePosition={choosePosition}
+							selected={items.selected}
+							itemType={items.itemType}
+						>
+							{items.item}
+						</MarubatsuBox>
+					))}
+				</Area>
+			</Container>
+		</div>
 	)
 }
 
-const positionNumbers = [1, 2, 4, 8, 16, 32, 64, 128, 256]
 
 const checkResult = (selectedItems: SelectItemsType[], itemType: string) => {
-	console.log('checkResult() ----------------');
-	console.log('selectedItems: ', selectedItems);
-	console.log('itemType: ', itemType);
-
+	const positionNumbers = [1, 2, 4, 8, 16, 32, 64, 128, 256]
 	const itemValue = itemType === 'circle' ? '○' : '✕'
 	const selectedPosition = selectedItems.map((v, i) => v.item === itemValue ? positionNumbers[i] : 0)
-	console.log('selectedPosition: ', selectedPosition);
 
 	// rows
 	if(selectedPosition[0] + selectedPosition[1] + selectedPosition[2] == 7) return true
@@ -99,24 +73,14 @@ const checkResult = (selectedItems: SelectItemsType[], itemType: string) => {
 	return false
 }
 
-// const toggleItem = (selectedItems:any, setSelectedItems:any, index:number) => {
-// 	let newItems = selectedItems
-// 	console.log('newItems: ', newItems);
-// 	newItems.splice(index, 1, 1)
-// 	console.log('newItems: ', newItems);
-// 	setSelectedItems(newItems)
-// }
-
-// const BoxField = (props:any) => {
-// 	return <div></div>
-// }
-
 const Container = styled.div`
 	display:flex;
 	flex-direction: column;
+	/* flex-direction: row; */
 	align-items: center;
-	height: 100%;
-	margin: 0 auto;
+	justify-content: center;
+	min-height: 80vh;
+	margin: auto auto;
 `
 const Area = styled.div`
 	display: grid;
@@ -127,5 +91,6 @@ const Area = styled.div`
 	/ 100px 100px 100px
 	;
 	/* grid-gap: 1px; */
+	/* min-height: 100vh; */
 `
 

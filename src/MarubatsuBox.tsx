@@ -22,11 +22,8 @@ export const MarubatsuBox:React.FC<Props> = (props) => {
 	)
 }
 
-// const Container = styled.div<{ visibleWeek: boolean}>`
-// 	display: ${props => ( props.visibleWeek ? 'flex' : 'none!important' )};
 const Box = styled.div<{selected: boolean, bg_color: string}>`
 	display: flex;
-	/* background-color: ${props => props.itemType === 'circle' ? "#2792c3" : "#2792c3"}; */
 	background-color: ${props => props.bg_color};
 	border: solid 1px black;
 	justify-content: center;

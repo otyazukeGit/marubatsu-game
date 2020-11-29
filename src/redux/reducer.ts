@@ -1,7 +1,7 @@
 import {initialStateType} from './initialState'
-import {SelectItemType, SetResultMessage} from './actions'
+import {SelectItemType, SetResultType} from './actions'
 
-type ActionType = SelectItemType | SetResultMessage  // | .. | ..
+type ActionType = SelectItemType | SetResultType  // | .. | ..
 
 
 export const reducer = (state: initialStateType, action: ActionType) => {
@@ -16,8 +16,8 @@ export const reducer = (state: initialStateType, action: ActionType) => {
 			// console.log('newSelectedItem: ', newSelectedItem);
 			return Object.assign({}, state, {...state, selectedItems:newSelectedItems})
 
-		case 'setResultMessage':
-			return Object.assign({}, state, {...state, resultMessaage:action.msg})
+		case 'setResult':
+			return Object.assign({}, state, {...state, resultMessaage:action.msg, finish:true})
 
 		default:
 			return state

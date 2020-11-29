@@ -16,12 +16,12 @@ export const SignIn = () => {
 		<Container>
 			<h1> Sign In</h1>
 			<TextInput
-				fullWidth={true} label={'Email'} multiline={false}
+				fullWidth={false} width={300} label={'Email'} multiline={false}
 				required={true} rows={1} value={email} type={"email"} placeholder={"aa"}
 				onChange={(e: { target: { value: React.SetStateAction<string> } }) => setEmail(e.target.value)}
 			/>
 			<TextInput
-				fullWidth={true} label={'Password'} multiline={false}
+				fullWidth={false} width={300} label={'Password'} multiline={false}
 				required={true} rows={1} value={password} type={"password"}
 				onChange={(e: { target: { value: React.SetStateAction<string> } }) => setPassword(e.target.value)}
 			/>
@@ -70,13 +70,14 @@ const authSignIn = async (email: string, password: string, history:any) => {
 const Container = styled.div`
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 	height: 100%;
 	width: 80%;
 	margin: 0 auto;
 `
 const ButtonArea = styled.div`
 	display: flex;
-	margin: 0 auto;
+	margin: 30px auto;
 `
 
 
