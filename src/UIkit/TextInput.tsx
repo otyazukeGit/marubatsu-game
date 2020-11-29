@@ -5,10 +5,10 @@ export const TextInput = (props:any) => {
 	let styles = {
 		textFld: { width: 0}   //assign the width as your requirement
 	}
-	console.log('styles: ', styles);
-	console.log('props.width: ', props.width);
+	// console.log('styles: ', styles);
+	// console.log('props.width: ', props.width);
 	styles.textFld.width = props.width
-	console.log('styles.textFld: ', styles.textFld);
+	// console.log('styles.textFld: ', styles.textFld);
 	
 	return (
 		<TextField

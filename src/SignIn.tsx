@@ -1,9 +1,10 @@
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { TextInput } from './UIkit/TextInput'
 import { PrimaryButton } from './UIkit/PrimaryButton'
 import Button from '@material-ui/core/Button';
 import { auth, FirebaseTimestamp } from './firebase/index'
+import firebase from 'firebase'
 import { useHistory } from "react-router-dom";
 
 
@@ -15,6 +16,7 @@ export const SignIn = () => {
 	return (
 		<Container>
 			<h1> Sign In</h1>
+			<Message>Please fill out your e-mail address and password below.</Message>
 			<TextInput
 				fullWidth={false} width={300} label={'Email'} multiline={false}
 				required={true} rows={1} value={email} type={"email"} placeholder={"aa"}
@@ -47,22 +49,31 @@ const authSignIn = async (email: string, password: string, history:any) => {
 	
 	// Sign In
 	// const history = useHistory()
-	await auth.signInWithEmailAndPassword(email, password)
-		.then(result => {
-			console.log('Response auth Sign In');
-			// console.log('result: ', result);
-			const user = result.user
-			if (user) {
-				const uid = user.uid
-				const timestamp = FirebaseTimestamp.now()
-
-				// transition to Marubatsu page.
-				history.push('/marubatsu')
-			}
+	await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION)
+		.then(async () => {
+			await auth.signInWithEmailAndPassword(email, password)
+			.then(result => {
+				console.log('Response auth Sign In');
+				// console.log('result: ', result);
+				const user = result.user
+				if (user) {
+					const uid = user.uid
+					const timestamp = FirebaseTimestamp.now()
+		
+					// transition to Marubatsu page.
+					history.push('/marubatsu')
+				}
+			}).catch(error => {
+				console.log('SignIn error : ', error);
+				return false
+			})		
 		}).catch(error => {
-			console.log('Sign In error');
+			console.log('setPersistence error : ', error);
 			return false
 		})
+
+		
+	
 	console.log('end');
 	return true
 }
@@ -74,6 +85,9 @@ const Container = styled.div`
 	height: 100%;
 	width: 80%;
 	margin: 0 auto;
+`
+const Message = styled.div`
+	color: black;
 `
 const ButtonArea = styled.div`
 	display: flex;

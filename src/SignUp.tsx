@@ -20,6 +20,7 @@ export const SignUp = () => {
 	return (
 		<Container>
 			<h1> Sign Up</h1>
+			<Message>Please input your informations on this site.</Message>
 			<TextInput
 				fullWidth={false} width={300} label={'User Name'} multiline={false}
 				required={true} rows={1} value={userName} type={"text"}
@@ -106,6 +107,9 @@ const Container = styled.div`
 `
 const ButtonArea = styled.div`
 	margin: 30px auto;
+`
+const Message = styled.div`
+	color: black;
 `
 
 

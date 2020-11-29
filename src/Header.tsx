@@ -3,6 +3,19 @@ import { useHistory } from "react-router-dom";
 // import {useTransition} from './UIkit/Routing'
 import styled from 'styled-components'
 import Button from '@material-ui/core/Button';
+import {auth} from './firebase/index'
+import { History } from 'history';
+
+const SignOut = async (history: History<unknown>) => {
+	await auth.signOut()
+		.then(result => {
+			console.log('SignOut! ', result);
+			alert('Sign Out')
+			history.push('/')
+		}).catch(error => {
+			if(error) console.log('error : ', error)
+		})
+	}
 
 export const Header = () => {
 	const history = useHistory()
@@ -11,8 +24,11 @@ export const Header = () => {
 			<h1>Marubatu Game</h1>
 			<HeaderArea>
 				<Button aria-controls="simple-menu" aria-haspopup="true" onClick={() => history.push('/')}>TOP</Button>
-				<Button aria-controls="simple-menu" aria-haspopup="true" onClick={() => history.push('/signup')}>Sign Up</Button>
+				{/* <Button aria-controls="simple-menu" aria-haspopup="true" onClick={() => history.push('/signup')}>Sign Up</Button> */}
 				<Button aria-controls="simple-menu" aria-haspopup="true" onClick={() => history.push('/marubatsu')}>Marubatsu</Button>
+				<RightArea>
+					<Button aria-controls="simple-menu" aria-haspopup="true" onClick={() => SignOut(history)}>Sign Out</Button>
+				</RightArea>
 			</HeaderArea>
 		</div>
 	)
@@ -23,4 +39,6 @@ const HeaderArea = styled.div`
 	display: flex;
 	border-bottom: solid 2px skyblue;
 `
-// const Link = styled.a``
+const RightArea = styled.div`
+	margin-left: auto;
+`
