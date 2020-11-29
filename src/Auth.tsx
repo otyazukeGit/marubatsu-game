@@ -19,7 +19,7 @@ export const Auth = ({ children }: any) => {
 						// TODO: do store the auth status after SignIn
 
 					} else {
-						history.push("/")
+						history.push("/signin")
 					}
 				})
 			}
