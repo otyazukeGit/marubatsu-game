@@ -1,10 +1,11 @@
 import {initialStateType} from './initialState'
-import {SelectItemType, SetResultType} from './actions'
+// import {SelectItemType, SetResultType, SignInType, SignOutType} from './actions'
+import {ActionType} from './actions'
 
-type ActionType = SelectItemType | SetResultType  // | .. | ..
 
 
 export const reducer = (state: initialStateType, action: ActionType) => {
+	let newUser
 	switch(action.type){
 		case 'selectItem':
 			const newItem = state.selectedItems[action.selectIndex]
@@ -18,6 +19,18 @@ export const reducer = (state: initialStateType, action: ActionType) => {
 
 		case 'setResult':
 			return Object.assign({}, state, {...state, resultMessaage:action.msg, finish:true})
+
+		case 'signIn':
+			newUser = state.user
+			newUser.auth = true;
+			newUser.userName = action.userName
+			return Object.assign({}, state, {...state, user:newUser})
+
+		case 'signOut':
+			newUser = state.user
+			newUser.auth = false;
+			newUser.userName = ''
+			return Object.assign({}, state, {...state, user:newUser})
 
 		default:
 			return state

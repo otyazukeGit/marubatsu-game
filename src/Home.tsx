@@ -1,10 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
 import { PrimaryButton } from './UIkit/PrimaryButton'
-import Button from '@material-ui/core/Button';
 import { useHistory } from "react-router-dom";
+// import { Button } from '@material-ui/core';
+import { SimpleButton } from './UIkit/SimpleButton'
+type Props = {
+	auth: boolean
+}
 
-export const Home = () => {
+export const Home:React.FC<Props> = (props) => {
 	const history = useHistory()
 	return (
 		<Container>
@@ -19,8 +23,8 @@ export const Home = () => {
 			</details>
 			<p>Please sign up and enjoy the Marubatsu Game!</p>
 			<ButtonArea>
-				<PrimaryButton label={"Sign In"} onClick={() => history.push('/signin')} />
-				<Button aria-controls="simple-menu" aria-haspopup="true" onClick={() => history.push('/signin')}>Sign Up</Button>
+				<PrimaryButton label={"Sign In"} width={120} onClick={() => history.push('/signin')} />
+				<SimpleButton label={"Sign Up"} onClick={() => history.push('/signup')} />
 			</ButtonArea>
 		</Container>
 	)

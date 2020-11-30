@@ -4,8 +4,13 @@ import { TextInput } from './UIkit/TextInput'
 import { PrimaryButton } from './UIkit/PrimaryButton'
 import { auth, FirebaseTimestamp } from './firebase/index'
 import { useHistory } from 'react-router-dom'
+import { ActionType, signIn } from './redux/actions'
 
-export const SignUp = () => {
+type Props = {
+	dispatch: React.Dispatch<ActionType>
+}
+
+export const SignUp:React.FC<Props> = (props) => {
 	// TODO: commonality
 	const history = useHistory()
 	const [userName, setUserName]: [string, React.Dispatch<React.SetStateAction<string>>] = useState<string>(""),
@@ -43,15 +48,15 @@ export const SignUp = () => {
 			/>
 			<ButtonArea>
 				<PrimaryButton
-					label={"Create  Account"}
-					onClick={() => authSignUp(userName, email, password, confirmPassword, history)}
+					label={"Create  Account"} width={180}
+					onClick={() => authSignUp(userName, email, password, confirmPassword, history, props.dispatch)}
 				/>
 			</ButtonArea>
 		</Container>
 	)
 }
 
-const authSignUp = async (userName: string, email: string, password: string, confirmPassword: string, history:any) => {
+const authSignUp = async (userName: string, email: string, password: string, confirmPassword: string, history:any, dispatch:any) => {
 	console.log('authSignUp');
 	console.log('userName: ', userName);
 	//Validation
@@ -86,6 +91,8 @@ const authSignUp = async (userName: string, email: string, password: string, con
 
 				// transition to Marubatsu page.
 				history.push('/marubatsu')
+
+				dispatch(signIn(userName))
 
 			}
 		}).catch(error => {

@@ -1,42 +1,49 @@
 import React, {useEffect, useReducer, useState} from 'react'
 import styled from 'styled-components'
-import { initialState, SelectItemsType } from './redux/initialState'
-import { reducer } from './redux/reducer'
+// import { initialState, SelectItemsType } from './redux/initialState'
+// import { reducer } from './redux/reducer'
+import {ActionType} from './redux/actions'
+import {initialStateType, SelectItemsType} from './redux/initialState'
 import {selectItem, setResult} from './redux/actions'
 import {MarubatsuBox} from './MarubatsuBox'
 import {Pane} from './Pane'
 
-export const Marubatsu:React.FC = () => {
-	const [state, dispatch] = useReducer(reducer, initialState)
-	const selectCnt = state.selectedItems.filter(v => v.item !== '').length
+type Props = {
+	state: initialStateType,
+	dispatch: React.Dispatch<ActionType>
+}
+
+export const Marubatsu:React.FC<Props> = (props) => {
+	// const [state, dispatch] = useReducer(reducer, initialState)
+	const selectCnt = props.state.selectedItems.filter(v => v.item !== '').length
 	console.log('cnt: ', selectCnt);
-	console.log('state.finish: ', state.finish);
+	console.log('state.finish: ', props.state.finish);
 	const itemType = selectCnt % 2 === 0 ? 'circle' : 'cross'
 
 	const choosePosition = (selected: boolean, index: number) => {
 		if(selected) return
-		dispatch(selectItem(index, itemType))
+		props.dispatch(selectItem(index, itemType))
 	}
 
 	useEffect(
 		() => {
 			let result
 			const checkItemType = selectCnt % 2 !== 0 ? 'circle' : 'cross'
-			result = checkResult(state.selectedItems, checkItemType)
+			result = checkResult(props.state.selectedItems, checkItemType)
 			const player = checkItemType === 'circle' ? 'Player 1' : 'Player 2'
-			if(result) dispatch(setResult(player + ' Won!'))
+			if(result) props.dispatch(setResult(player + ' Won!'))
 		}
 		, [selectCnt]
 		)
 
 	return (
 		<div>
-			<Pane finish={state.finish} msg={state.resultMessaage}></Pane>
+			<Pane finish={props.state.finish} msg={props.state.resultMessaage}></Pane>
 			<Container className="Container">
 
 				{/* {state.resultMessaage} */}
 				<Area>
-					{state.selectedItems.map((items:SelectItemsType, index:number) => (
+					{props.state.selectedItems.map((items:SelectItemsType, index:number) => (
 						<MarubatsuBox 
 							key={index} 
 							index={index}

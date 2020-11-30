@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useReducer} from 'react';
 import { BrowserRouter as Router , Switch , Route , Link } from "react-router-dom"
 // import './App.css';
 import { Home } from './Home'
@@ -8,27 +8,47 @@ import { SignIn } from './SignIn'
 import { Auth } from './Auth'
 import { Marubatsu } from './Marubatsu';
 import styled from 'styled-components'
+import { initialState } from './redux/initialState'
+import { reducer } from './redux/reducer'
+import {ActionType, SignInType} from './redux/actions'
 
 function App() {
+	const [state, dispatch] = useReducer(reducer, initialState)
+
 	return (
 		<Container>
 			<Router>
-				<Header />
+				<Header
+					userName={state.user.userName}
+				/>
 				<Switch>
 					<Route path="/" exact>
-						<Home />
+						<Home
+							auth={state.user.auth}
+						/>
 					</Route>
-					<Route path="/signin" exact>
-						<SignIn />
-					</Route>
+
 					<Route path="/signup" exact>
-						<SignUp />
+						<SignUp
+							dispatch={dispatch}
+						/>
 					</Route>
+
+					<Route path="/signin" exact>
+						<SignIn
+							dispatch={dispatch}
+						/>
+					</Route>
+
 					<Auth>
 						<Route path="/marubatsu" exact>
-							<Marubatsu></Marubatsu>
+							<Marubatsu
+								state={state}
+								dispatch={dispatch}
+							/>
 						</Route>
 					</Auth>
+
 				</Switch>
 			</Router>
 		</Container>

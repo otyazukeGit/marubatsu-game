@@ -1,11 +1,18 @@
 export type initialStateType = {
+	user: {auth: boolean , userName: string},
 	resultMessaage: string,
 	finish: boolean,
 	selectedItems: SelectItemsType[]
 }
-export type SelectItemsType = {index:number , selected:boolean, itemType:''|'circle'|'cross', item:string}
+export type SelectItemsType = {
+	index:number,
+	selected:boolean,
+	itemType:''|'circle'|'cross',
+	item:string
+}
 
 export const initialState: initialStateType = {
+	user: {auth: false , userName: ''},
 	resultMessaage: '',
 	finish: false,
 	selectedItems: [

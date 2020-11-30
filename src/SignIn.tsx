@@ -2,13 +2,16 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { TextInput } from './UIkit/TextInput'
 import { PrimaryButton } from './UIkit/PrimaryButton'
-import Button from '@material-ui/core/Button';
 import { auth, FirebaseTimestamp } from './firebase/index'
 import firebase from 'firebase'
 import { useHistory } from "react-router-dom";
+import { ActionType, signIn } from './redux/actions';
 
+type Props = {
+	dispatch: React.Dispatch<ActionType>
+}
 
-export const SignIn = () => {
+export const SignIn:React.FC<Props> = (props) => {
 	const history = useHistory()
 	const [email, setEmail]: [string, React.Dispatch<React.SetStateAction<string>>] = useState<string>(""),
 		[password, setPassword]: [string, React.Dispatch<React.SetStateAction<string>>] = useState<string>("")
@@ -29,16 +32,15 @@ export const SignIn = () => {
 			/>
 			<ButtonArea>
 				<PrimaryButton
-					label={"Sign In"}
-					onClick={() => authSignIn(email, password, history)}
+					label={"Sign In"} width={120}
+					onClick={() => authSignIn(email, password, history, props.dispatch)}
 				/>
-				<Button aria-controls="simple-menu" aria-haspopup="true" onClick={() => history.push('/signup')}>Sign Up</Button>
 			</ButtonArea>
 		</Container>
 	)
 }
 
-const authSignIn = async (email: string, password: string, history:any) => {
+const authSignIn = async (email: string, password: string, history:any, dispatch:any) => {
 	//Validation
 	if (email === '' || password === '') {
 		alert('Please fill out the required informations.')
@@ -58,10 +60,17 @@ const authSignIn = async (email: string, password: string, history:any) => {
 				const user = result.user
 				if (user) {
 					const uid = user.uid
+					const userName = user.displayName
 					const timestamp = FirebaseTimestamp.now()
 		
 					// transition to Marubatsu page.
 					history.push('/marubatsu')
+
+					if(userName){
+						console.log('userName: ', userName);
+						dispatch(signIn(userName))
+					}
+					
 				}
 			}).catch(error => {
 				console.log('SignIn error : ', error);
