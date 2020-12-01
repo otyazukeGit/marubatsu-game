@@ -17,9 +17,10 @@ export const Marubatsu:React.FC<Props> = (props) => {
 	// console.log('cnt: ', selectCnt);
 	// console.log('state.finish: ', props.state.finish);
 	const itemType = selectCnt % 2 === 0 ? 'circle' : 'cross'
-
+	
 	const choosePosition = (selected: boolean, index: number) => {
-		if(selected) return
+		if(selected) return  // It has already bean selected.
+		console.log('choosePosition - itemType: ', itemType);
 		props.dispatch(selectItem(index, itemType))
 	}
 
@@ -33,10 +34,22 @@ export const Marubatsu:React.FC<Props> = (props) => {
 			const checkItemType = selectCnt % 2 !== 0 ? 'circle' : 'cross'
 			result = checkResult(props.state.selectedItems, checkItemType)
 			const player = checkItemType === 'circle' ? 'Player 1' : 'Player 2'
-			if(result) props.dispatch(setResult(player + ' Won!'))
+			if(result) {
+				props.dispatch(setResult(player + ' Won!'))
+			} else if (itemType === 'cross'){
+				let choice:number = -1
+				while(choice < 0){
+					let random = Math.round(Math.random() * 10)
+					console.log('random: ', random);
+					if(random == 10) random = 0
+					if(random !== 9 && props.state.selectedItems[random].selected === false) choice = random
+				}
+				console.log('choice: ', choice);
+				choosePosition(false, choice)
+			}
 		}
 		, [selectCnt]
-		)
+	)
 
 	return (
 		<div>
