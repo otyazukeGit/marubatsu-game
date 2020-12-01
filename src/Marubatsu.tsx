@@ -36,16 +36,21 @@ export const Marubatsu:React.FC<Props> = (props) => {
 			const player = checkItemType === 'circle' ? 'Player 1' : 'Player 2'
 			if(result) {
 				props.dispatch(setResult(player + ' Won!'))
-			} else if (itemType === 'cross'){
-				let choice:number = -1
-				while(choice < 0){
-					let random = Math.round(Math.random() * 10)
-					console.log('random: ', random);
-					if(random == 10) random = 0
-					if(random !== 9 && props.state.selectedItems[random].selected === false) choice = random
-				}
-				console.log('choice: ', choice);
-				choosePosition(false, choice)
+			} else {
+				if(selectCnt == 9){
+					console.log('Draw!');
+					props.dispatch(setResult('Draw!'))
+				} else if (itemType === 'cross'){
+					let choice:number = -1
+					while(choice < 0){
+						let random = Math.round(Math.random() * 10)
+						console.log('random: ', random);
+						if(random == 10) random = 0
+						if(random !== 9 && props.state.selectedItems[random].selected === false) choice = random
+					}
+					console.log('choice: ', choice);
+					choosePosition(false, choice)
+				}	
 			}
 		}
 		, [selectCnt]
