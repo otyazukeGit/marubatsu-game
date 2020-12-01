@@ -1,8 +1,6 @@
-import {initialStateType} from './initialState'
-// import {SelectItemType, SetResultType, SignInType, SignOutType} from './actions'
+import {initialStateType, SelectItemsType} from './initialState'
 import {ActionType} from './actions'
-
-
+import {defaultItems} from './initialState'
 
 export const reducer = (state: initialStateType, action: ActionType) => {
 	let newUser
@@ -31,6 +29,9 @@ export const reducer = (state: initialStateType, action: ActionType) => {
 			newUser.auth = false;
 			newUser.userName = ''
 			return Object.assign({}, state, {...state, user:newUser})
+
+		case 'retryGame':
+			return Object.assign({}, state, {...state, resultMessaage:'', finish:false, selectedItems:JSON.parse(JSON.stringify(defaultItems)) })
 
 		default:
 			return state

@@ -4,7 +4,8 @@ import {makeStyles} from '@material-ui/styles'
 
 const useStyles = makeStyles({
 	"button": {
-		textTransform: "none"
+		textTransform: "none",
+		marginRight: 15
 	}
 })
 

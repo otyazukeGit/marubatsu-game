@@ -38,7 +38,7 @@ export const Header:React.FC<Props> = (props) => {
 					{props.userName.length === 0 &&
 						<SimpleButton label={"Sign Up"} onClick={() => history.push('/signup')} />
 					}
-					<Button aria-controls="simple-menu" aria-haspopup="true" onClick={() => SignOut(history)}>Sign Out</Button>
+					<SimpleButton label={"Sign Out"} onClick={() => SignOut(history)} />
 				</RightArea>
 			</HeaderArea>
 		</div>

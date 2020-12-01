@@ -10,6 +10,7 @@ type Props = {
 
 export const Home:React.FC<Props> = (props) => {
 	const history = useHistory()
+	console.log('auth: ', props.auth);
 	return (
 		<Container>
 			<h1>Welcome!</h1>
@@ -22,10 +23,12 @@ export const Home:React.FC<Props> = (props) => {
 				<p>The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row is the winner.</p>
 			</details>
 			<p>Please sign up and enjoy the Marubatsu Game!</p>
-			<ButtonArea>
+			{props.auth === false &&
+				<ButtonArea>
 				<PrimaryButton label={"Sign In"} width={120} onClick={() => history.push('/signin')} />
 				<SimpleButton label={"Sign Up"} onClick={() => history.push('/signup')} />
-			</ButtonArea>
+				</ButtonArea>
+			}
 		</Container>
 	)
 }

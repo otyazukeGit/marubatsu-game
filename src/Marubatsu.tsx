@@ -1,10 +1,9 @@
 import React, {useEffect, useReducer, useState} from 'react'
 import styled from 'styled-components'
-// import { initialState, SelectItemsType } from './redux/initialState'
-// import { reducer } from './redux/reducer'
+import { defaultItems } from './redux/initialState'
 import {ActionType} from './redux/actions'
 import {initialStateType, SelectItemsType} from './redux/initialState'
-import {selectItem, setResult} from './redux/actions'
+import {selectItem, setResult, retryGame} from './redux/actions'
 import {MarubatsuBox} from './MarubatsuBox'
 import {Pane} from './Pane'
 
@@ -14,10 +13,9 @@ type Props = {
 }
 
 export const Marubatsu:React.FC<Props> = (props) => {
-	// const [state, dispatch] = useReducer(reducer, initialState)
 	const selectCnt = props.state.selectedItems.filter(v => v.item !== '').length
-	console.log('cnt: ', selectCnt);
-	console.log('state.finish: ', props.state.finish);
+	// console.log('cnt: ', selectCnt);
+	// console.log('state.finish: ', props.state.finish);
 	const itemType = selectCnt % 2 === 0 ? 'circle' : 'cross'
 
 	const choosePosition = (selected: boolean, index: number) => {
@@ -25,6 +23,10 @@ export const Marubatsu:React.FC<Props> = (props) => {
 		props.dispatch(selectItem(index, itemType))
 	}
 
+	const reset = () => {
+		props.dispatch(retryGame())
+	}
+	
 	useEffect(
 		() => {
 			let result
@@ -38,7 +40,11 @@ export const Marubatsu:React.FC<Props> = (props) => {
 
 	return (
 		<div>
-			<Pane finish={props.state.finish} msg={props.state.resultMessaage}></Pane>
+			<Pane 
+				finish={props.state.finish} 
+				msg={props.state.resultMessaage} 
+				reset={() => reset()}
+			/>
 			<Container className="Container">
 
 				{/* {state.resultMessaage} */}
@@ -59,7 +65,6 @@ export const Marubatsu:React.FC<Props> = (props) => {
 		</div>
 	)
 }
-
 
 const checkResult = (selectedItems: SelectItemsType[], itemType: string) => {
 	const positionNumbers = [1, 2, 4, 8, 16, 32, 64, 128, 256]

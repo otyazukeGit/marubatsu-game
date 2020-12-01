@@ -1,9 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
+import { PrimaryButton } from './UIkit/PrimaryButton'
 
 type PaneType = {
 	finish:boolean,
-	msg: string
+	msg: string,
+	reset: () => void
 }
 
 export const Pane = (props:PaneType) => {
@@ -13,6 +15,9 @@ export const Pane = (props:PaneType) => {
 			<FrontPane className="FrontPane">
 				<Message className="Message">{props.msg}</Message>
 			</FrontPane>
+			<ButtonArea>
+				<PrimaryButton label={"Retry"} width={150} onClick={() => props.reset()} />
+			</ButtonArea>
 		</BasePane>
 	)
 }
@@ -23,17 +28,13 @@ const BasePane = styled.div<{finish:boolean}>`
 	margin: 0;
 `
 const FrontPane = styled.div`
-	position: absolute;
-	height: 80vh;
-	/* height: 100%; */
-	width: 100%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	/* background-color: #c1c0b9; */
-	/* background-color: black;
-	opacity: 0.5; */
-	background-color: rgba(0,0,0, 0.5);  /*  */
+	position: absolute;
+	height: 80vh;
+	width: 100%;
+	background-color: rgba(0,0,0, 0.5);
 	top: 0;
 	left: 0;
 	margin: 0;
@@ -44,8 +45,16 @@ const Message = styled.div`
 	align-items: center;
 	height: 50px;
 	width: 100%;
-	/* background-color: black; */
 	background-color: green;
 	font-size: 32px;
 	color: white;
+`
+const ButtonArea = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	width: 100%;
+	top: 30%;
+	margin: 30px auto;
 `
