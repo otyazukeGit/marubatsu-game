@@ -18,7 +18,7 @@ function App() {
 		<Container>
 			<Router>
 				<Header
-					userName={state.user.userName}
+					userName={state.user.userName} isOpen={state.isOpen} dispatch={dispatch}
 				/>
 				<Switch>
 					<Route path="/" exact>

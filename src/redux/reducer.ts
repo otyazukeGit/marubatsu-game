@@ -1,4 +1,4 @@
-import {initialStateType, SelectItemsType} from './initialState'
+import {initialStateType} from './initialState'
 import {ActionType} from './actions'
 import {defaultItems} from './initialState'
 
@@ -28,11 +28,14 @@ export const reducer = (state: initialStateType, action: ActionType) => {
 			newUser = state.user
 			newUser.auth = false;
 			newUser.userName = ''
-			return Object.assign({}, state, {...state, user:newUser})
+			return Object.assign({}, state, {...state, user:newUser, resultMessaage:'', finish:false, selectedItems:JSON.parse(JSON.stringify(defaultItems)) , isOpen:true})
 
 		case 'retryGame':
 			return Object.assign({}, state, {...state, resultMessaage:'', finish:false, selectedItems:JSON.parse(JSON.stringify(defaultItems)) })
 
+		case 'closeModal':
+			return Object.assign({}, state, {...state, isOpen:false })
+	
 		default:
 			return state
 	}

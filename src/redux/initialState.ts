@@ -4,7 +4,8 @@ export type initialStateType = {
 	user: {auth: boolean , userName: string},
 	resultMessaage: string,
 	finish: boolean,
-	selectedItems: SelectItemsType[]
+	selectedItems: SelectItemsType[],
+	isOpen: boolean
 }
 export type SelectItemsType = {
 	index:number,
@@ -33,7 +34,8 @@ export const initialState: initialStateType = {
 	// selectedItems: [ ...defaultItems ]
 	// selectedItems: defaultItems.map(v => v)
 	// selectedItems: defaultItems.concat()
-	selectedItems: JSON.parse(JSON.stringify(defaultItems))
+	selectedItems: JSON.parse(JSON.stringify(defaultItems)),
+	isOpen: false
 }
 
 

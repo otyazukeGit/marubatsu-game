@@ -1,6 +1,6 @@
 import React, {useEffect, useReducer, useState} from 'react'
 import styled from 'styled-components'
-import { defaultItems } from './redux/initialState'
+// import { defaultItems } from './redux/initialState'
 import {ActionType} from './redux/actions'
 import {initialStateType, SelectItemsType} from './redux/initialState'
 import {selectItem, setResult, retryGame} from './redux/actions'
