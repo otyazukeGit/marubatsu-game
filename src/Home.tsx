@@ -13,7 +13,7 @@ export const Home:React.FC<Props> = (props) => {
 	console.log('auth: ', props.auth);
 	return (
 		<Container>
-			<h1>Welcome!</h1>
+			<h1>Introduction</h1>
 			<p>Hi, there.</p>
 			<p>Have you ever heard of Marubatsu Game or TIC TAC TOE?</p>
 			<p>It's easy and simple game.</p>
@@ -22,7 +22,7 @@ export const Home:React.FC<Props> = (props) => {
 				<p>Marubatsu Game is a paper-and-pencil game for two players, X and O, who take turns marking the spaces in a 3×3 grid.</p>
 				<p>The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row is the winner.</p>
 			</details>
-			<p>Please sign up and enjoy the Marubatsu Game!</p>
+			<p>Please join us and enjoy the Marubatsu Game!</p>
 			{props.auth === false &&
 				<ButtonArea>
 					<PrimaryButton label={"Sign In"} width={120} onClick={() => history.push('/signin')} />
