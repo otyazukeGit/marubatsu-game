@@ -10,7 +10,6 @@ import { Marubatsu } from './Marubatsu';
 import styled from 'styled-components'
 import { initialState } from './redux/initialState'
 import { reducer } from './redux/reducer'
-import {ActionType, SignInType} from './redux/actions'
 
 function App() {
 	const [state, dispatch] = useReducer(reducer, initialState)

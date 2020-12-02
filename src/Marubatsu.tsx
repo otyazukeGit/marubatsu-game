@@ -33,7 +33,7 @@ export const Marubatsu:React.FC<Props> = (props) => {
 			let result
 			const checkItemType = selectCnt % 2 !== 0 ? 'circle' : 'cross'
 			result = checkResult(props.state.selectedItems, checkItemType)
-			const player = checkItemType === 'circle' ? 'Player 1' : 'Player 2'
+			const player = checkItemType === 'circle' ? 'Player 1' : 'CPU'
 			if(result) {
 				props.dispatch(setResult(player + ' Won!'))
 			} else {

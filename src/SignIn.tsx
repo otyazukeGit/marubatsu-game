@@ -66,9 +66,10 @@ const authSignIn = async (email: string, password: string, history:any, dispatch
 					// transition to Marubatsu page.
 					history.push('/marubatsu')
 
-					if(userName){
+					dispatch(signIn('Player 1'))
+					if(uid){
 						console.log('userName: ', userName);
-						dispatch(signIn(userName))
+						// dispatch(signIn(userName))
 					}
 					
 				}

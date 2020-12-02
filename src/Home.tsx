@@ -25,8 +25,8 @@ export const Home:React.FC<Props> = (props) => {
 			<p>Please sign up and enjoy the Marubatsu Game!</p>
 			{props.auth === false &&
 				<ButtonArea>
-				<PrimaryButton label={"Sign In"} width={120} onClick={() => history.push('/signin')} />
-				<SimpleButton label={"Sign Up"} onClick={() => history.push('/signup')} />
+					<PrimaryButton label={"Sign In"} width={120} onClick={() => history.push('/signin')} />
+					<SimpleButton label={"Sign Up"} onClick={() => history.push('/signup')} />
 				</ButtonArea>
 			}
 		</Container>
