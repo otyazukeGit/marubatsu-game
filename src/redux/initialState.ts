@@ -1,17 +1,54 @@
-import json5 from "json5"
+type ValidateStateType = {error: boolean, message: string}
+export const defaultValdateState: ValidateStateType = {error: false, message: ''}
 
 export type initialStateType = {
 	user: {auth: boolean , userName: string},
 	resultMessaage: string,
 	finish: boolean,
 	selectedItems: SelectItemsType[],
-	isOpen: boolean
+	isOpen: boolean,
+	inputValidate: InputValidateType
 }
+
 export type SelectItemsType = {
 	index:number,
 	selected:boolean,
 	itemType:''|'circle'|'cross',
 	item:string
+}
+
+export type InputValidateType = {
+	"signUp": InputSignUpType,
+	"signIn": InputSignInType,
+}
+
+export type InputSignUpType = {
+	"top": ValidateStateType,
+	"userName": ValidateStateType,
+	"email": ValidateStateType,
+	"password": ValidateStateType,
+	"confirmPassword": ValidateStateType,
+}
+export const defaultInputSignUp: InputSignUpType = {
+	"top": defaultValdateState,
+	"userName": defaultValdateState,
+	"email": defaultValdateState,
+	"password": defaultValdateState,
+	"confirmPassword": defaultValdateState,
+}
+export type InputSignInType = {
+	"top": ValidateStateType,
+	"email": ValidateStateType,
+	"password": ValidateStateType,
+}
+export const defaultInputSignIn: InputSignInType = {
+	"top": defaultValdateState,
+	"email": defaultValdateState,
+	"password": defaultValdateState,
+}
+export const defaultInputValidate: InputValidateType = {
+	signIn: defaultInputSignIn,
+	signUp: defaultInputSignUp
 }
 
 export const defaultItems: SelectItemsType[] = [
@@ -26,7 +63,8 @@ export const defaultItems: SelectItemsType[] = [
 	{index:8 , selected:false, itemType:'', item:''},
 ]
 
-export const initialState: initialStateType = {
+
+export const defaultState: initialStateType = {
 	user: {auth: false , userName: ''},
 	resultMessaage: '',
 	finish: false,
@@ -34,8 +72,14 @@ export const initialState: initialStateType = {
 	// selectedItems: [ ...defaultItems ]
 	// selectedItems: defaultItems.map(v => v)
 	// selectedItems: defaultItems.concat()
+	// selectedItems: Object.assign({}, defaultItems),
 	selectedItems: JSON.parse(JSON.stringify(defaultItems)),
-	isOpen: false
+	isOpen: false,
+	inputValidate: JSON.parse(JSON.stringify(defaultInputValidate)),
+	// inputValidate: Object.assign({}, defaultInputValidate),
 }
+
+
+export const initialState: initialStateType = JSON.parse(JSON.stringify(defaultState))
 
 

@@ -5,9 +5,12 @@ import { PrimaryButton } from './UIkit/PrimaryButton'
 import { auth, FirebaseTimestamp } from './firebase/index'
 import firebase from 'firebase'
 import { useHistory } from "react-router-dom";
-import { ActionType, signIn } from './redux/actions';
+import { ActionType, signIn, inputValidateSignIn } from './redux/actions';
+import { InputSignInType } from './redux/initialState'
+import { ErrorBox } from './UIkit/ErrorBox'
 
 type Props = {
+	validation: InputSignInType,
 	dispatch: React.Dispatch<ActionType>
 }
 
@@ -16,17 +19,23 @@ export const SignIn:React.FC<Props> = (props) => {
 	const [email, setEmail]: [string, React.Dispatch<React.SetStateAction<string>>] = useState<string>(""),
 		[password, setPassword]: [string, React.Dispatch<React.SetStateAction<string>>] = useState<string>("")
 
+	console.log('props.validation: ', props.validation);
+
 	return (
 		<Container>
 			<h1> Sign In</h1>
-			<Message>Please fill out your e-mail address and password below.</Message>
+			{props.validation.top.error &&
+				<ErrorBox msg={props.validation.top.message}></ErrorBox>
+			}
 			<TextInput
-				fullWidth={false} width={300} label={'Email'} multiline={false}
-				required={true} rows={1} value={email} type={"email"} placeholder={"aa"}
+				errorCondition={props.validation.email.error} helperText={props.validation.email.message}
+				fullWidth={false} width={300} label={'Email Address'} multiline={false}
+				required={true} rows={1} value={email} type={"email"}
 				onChange={(e: { target: { value: React.SetStateAction<string> } }) => setEmail(e.target.value)}
 			/>
 			<TextInput
-				fullWidth={false} width={300} label={'Password'} multiline={false}
+				errorCondition={props.validation.password.error} helperText={props.validation.password.message}
+				fullWidth={false} width={300} label={'Password (at least 6 characters)'} multiline={false}
 				required={true} rows={1} value={password} type={"password"}
 				onChange={(e: { target: { value: React.SetStateAction<string> } }) => setPassword(e.target.value)}
 			/>
@@ -43,14 +52,19 @@ export const SignIn:React.FC<Props> = (props) => {
 const authSignIn = async (email: string, password: string, history:any, dispatch:any) => {
 	//Validation
 	if (email === '' || password === '') {
-		alert('Please fill out the required informations.')
-		false
+		dispatch(inputValidateSignIn('top', 'Please fill out the required informations.'))
+		return
 	}
-	// TODO if Password Pattern
-
+	if(!email.match(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)){
+		dispatch(inputValidateSignIn('email', 'Invalid Email Address format.'))
+		return
+	}
+	if(password.length < 6){
+		dispatch(inputValidateSignIn('password', 'At least 6 characters'))
+		return
+	}
 	
 	// Sign In
-	// const history = useHistory()
 	await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION)
 		.then(async () => {
 			await auth.signInWithEmailAndPassword(email, password)
@@ -69,16 +83,17 @@ const authSignIn = async (email: string, password: string, history:any, dispatch
 					dispatch(signIn('Player 1'))
 					if(uid){
 						console.log('userName: ', userName);
-						// dispatch(signIn(userName))
 					}
 					
 				}
 			}).catch(error => {
 				console.log('SignIn error : ', error);
-				return false
+				dispatch(inputValidateSignIn('top', 'Sorry, Server Error. please try again later.'))
+				return
 			})		
 		}).catch(error => {
 			console.log('setPersistence error : ', error);
+			dispatch(inputValidateSignIn('top', 'Sorry, Server Error. please try again later.'))
 			return false
 		})
 
@@ -95,9 +110,6 @@ const Container = styled.div`
 	height: 100%;
 	width: 80%;
 	margin: 0 auto;
-`
-const Message = styled.div`
-	color: black;
 `
 const ButtonArea = styled.div`
 	display: flex;

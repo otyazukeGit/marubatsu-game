@@ -1,5 +1,5 @@
 import React, {useReducer} from 'react';
-import { BrowserRouter as Router , Switch , Route , Link } from "react-router-dom"
+import { BrowserRouter as Router , Switch , Route } from "react-router-dom"
 // import './App.css';
 import { Home } from './Home'
 import { Header } from './Header'
@@ -13,12 +13,14 @@ import { reducer } from './redux/reducer'
 
 function App() {
 	const [state, dispatch] = useReducer(reducer, initialState)
+	console.log('state: ', state);
+
 
 	return (
 		<Container>
 			<Router>
 				<Header
-					userName={state.user.userName} isOpen={state.isOpen} dispatch={dispatch}
+					user={state.user} isOpen={state.isOpen} dispatch={dispatch}
 				/>
 				<Switch>
 					<Route path="/" exact>
@@ -29,12 +31,14 @@ function App() {
 
 					<Route path="/signup" exact>
 						<SignUp
+							validation={state.inputValidate.signUp}
 							dispatch={dispatch}
 						/>
 					</Route>
 
 					<Route path="/signin" exact>
 						<SignIn
+							validation={state.inputValidate.signIn}
 							dispatch={dispatch}
 						/>
 					</Route>

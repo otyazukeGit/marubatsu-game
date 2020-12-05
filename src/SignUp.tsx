@@ -4,14 +4,16 @@ import { TextInput } from './UIkit/TextInput'
 import { PrimaryButton } from './UIkit/PrimaryButton'
 import { auth, FirebaseTimestamp } from './firebase/index'
 import { useHistory } from 'react-router-dom'
-import { ActionType, signIn } from './redux/actions'
+import { ActionType, inputValidateSignUp, signIn } from './redux/actions'
+import { InputSignUpType } from './redux/initialState'
+import { ErrorBox } from './UIkit/ErrorBox'
 
 type Props = {
+	validation: InputSignUpType,
 	dispatch: React.Dispatch<ActionType>
 }
 
 export const SignUp:React.FC<Props> = (props) => {
-	// TODO: commonality
 	const history = useHistory()
 	const [userName, setUserName]: [string, React.Dispatch<React.SetStateAction<string>>] = useState<string>(""),
 		[email, setEmail]: [string, React.Dispatch<React.SetStateAction<string>>] = useState<string>(""),
@@ -25,23 +27,29 @@ export const SignUp:React.FC<Props> = (props) => {
 	return (
 		<Container>
 			<h1> Sign Up</h1>
-			<Message>Please input your informations on this site.</Message>
+			{props.validation.top.error &&
+				<ErrorBox msg={props.validation.top.message}></ErrorBox>
+			}
 			<TextInput
+				errorCondition={props.validation.email.error} helperText={props.validation.email.message}
 				fullWidth={false} width={300} label={'User Name'} multiline={false}
 				required={true} rows={1} value={userName} type={"text"}
 				onChange={inputUserName}
 			/>
 			<TextInput
-				fullWidth={false} width={300} label={'Email'} multiline={false}
-				required={true} rows={1} value={email} type={"email"} placeholder={"aa"}
+				errorCondition={props.validation.userName.error} helperText={props.validation.userName.message}
+				fullWidth={false} width={300} label={'Email Address'} multiline={false}
+				required={true} rows={1} value={email} type={"email"}
 				onChange={(e: { target: { value: React.SetStateAction<string> } }) => setEmail(e.target.value)}
 			/>
 			<TextInput
+				errorCondition={props.validation.password.error} helperText={props.validation.password.message}
 				fullWidth={false} width={300} label={'Password (at least 6 characters)'} multiline={false}
 				required={true} rows={1} value={password} type={"password"}
 				onChange={(e: { target: { value: React.SetStateAction<string> } }) => setPassword(e.target.value)}
 			/>
 			<TextInput
+				errorCondition={props.validation.confirmPassword.error} helperText={props.validation.confirmPassword.message}
 				fullWidth={false} width={300} label={'Confirm Password (at least 6 characters)'} multiline={false}
 				required={true} rows={1} value={confirmPassword} type={"password"}
 				onChange={(e: { target: { value: React.SetStateAction<string> } }) => setConfirmPassword(e.target.value)}
@@ -58,17 +66,23 @@ export const SignUp:React.FC<Props> = (props) => {
 
 const authSignUp = async (userName: string, email: string, password: string, confirmPassword: string, history:any, dispatch:any) => {
 	console.log('authSignUp');
-	console.log('userName: ', userName);
 	//Validation
 	if (userName === '' || email === '' || password === '' || confirmPassword === '') {
-		alert('Please fill out the required informations.')
-		false
+		dispatch(inputValidateSignUp('top', 'Please fill out the required informations.'))
+		return
+	}
+	if(!email.match(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)){
+		dispatch(inputValidateSignUp('email', 'Invalid Email Address format.'))
+		return
+	}
+	if(password.length < 6){
+		dispatch(inputValidateSignUp('password', 'At least 6 characters'))
+		return
 	}
 	if (password !== confirmPassword) {
-		alert('Password does not match.')
-		false
+		dispatch(inputValidateSignUp('confirmPassword', 'Password does not match.'))
+		return
 	}
-	// TODO if Password Pattern
 
 	// Sign Up
 	await auth.createUserWithEmailAndPassword(email, password)
@@ -96,12 +110,10 @@ const authSignUp = async (userName: string, email: string, password: string, con
 
 			}
 		}).catch(error => {
-			console.log('Sign Up error');
-			console.log('error: ', error);
-			return false
+			console.log('Sign Up error: ', error);
+			dispatch(inputValidateSignUp('top', 'Sorry, Server Error. please try again later.'))
+			return
 		})
-	console.log('end');
-	return true
 }
 
 const Container = styled.div`

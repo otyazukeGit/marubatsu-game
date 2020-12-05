@@ -14,13 +14,10 @@ type Props = {
 
 export const Marubatsu:React.FC<Props> = (props) => {
 	const selectCnt = props.state.selectedItems.filter(v => v.item !== '').length
-	// console.log('cnt: ', selectCnt);
-	// console.log('state.finish: ', props.state.finish);
 	const itemType = selectCnt % 2 === 0 ? 'circle' : 'cross'
 	
 	const choosePosition = (selected: boolean, index: number) => {
 		if(selected) return  // It has already bean selected.
-		console.log('choosePosition - itemType: ', itemType);
 		props.dispatch(selectItem(index, itemType))
 	}
 
@@ -44,11 +41,9 @@ export const Marubatsu:React.FC<Props> = (props) => {
 					let choice:number = -1
 					while(choice < 0){
 						let random = Math.round(Math.random() * 10)
-						console.log('random: ', random);
 						if(random == 10) random = 0
 						if(random !== 9 && props.state.selectedItems[random].selected === false) choice = random
 					}
-					console.log('choice: ', choice);
 					choosePosition(false, choice)
 				}	
 			}
@@ -64,8 +59,6 @@ export const Marubatsu:React.FC<Props> = (props) => {
 				reset={() => reset()}
 			/>
 			<Container className="Container">
-
-				{/* {state.resultMessaage} */}
 				<Area>
 					{props.state.selectedItems.map((items:SelectItemsType, index:number) => (
 						<MarubatsuBox 
@@ -120,7 +113,5 @@ const Area = styled.div`
 	" area area area" 100px
 	/ 100px 100px 100px
 	;
-	/* grid-gap: 1px; */
-	/* min-height: 100vh; */
 `
 
