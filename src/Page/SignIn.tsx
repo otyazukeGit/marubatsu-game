@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import styled from 'styled-components'
-import { TextInput } from './UIkit/TextInput'
-import { PrimaryButton } from './UIkit/PrimaryButton'
-import { auth, FirebaseTimestamp } from './firebase/index'
-import firebase from 'firebase'
 import { useHistory } from "react-router-dom";
-import { ActionType, signIn, inputValidateSignIn } from './redux/actions';
-import { InputSignInType } from './redux/initialState'
-import { ErrorBox } from './UIkit/ErrorBox'
+import firebase from 'firebase'
+import { auth, FirebaseTimestamp } from '../firebase/index'
+import { ActionType, signIn, inputValidateSignIn } from '../redux/actions';
+import { InputSignInType } from '../redux/initialState'
+import styled from 'styled-components'
+import { TextInput } from '../UIkit/TextInput'
+import { PrimaryButton } from '../UIkit/PrimaryButton'
+import { ErrorBox } from '../UIkit/ErrorBox'
 
 type Props = {
 	validation: InputSignInType,

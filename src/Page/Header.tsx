@@ -1,11 +1,11 @@
 import React from 'react'
 import { useHistory } from "react-router-dom";
+import {auth} from '../firebase/index'
+import { ActionType, signOut } from '../redux/actions';
 import styled from 'styled-components'
 import Button from '@material-ui/core/Button';
-import {auth} from './firebase/index'
-import { SimpleButton } from './UIkit/SimpleButton';
-import { BasicModal } from './UIkit/Modal'
-import { ActionType, signOut } from './redux/actions';
+import { SimpleButton } from '../UIkit/SimpleButton';
+import { BasicModal } from '../UIkit/Modal'
 
 type Props = {
 	user: {auth: boolean , userName: string},

@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { useHistory } from "react-router-dom";
-// import {useTransition} from './UIkit/Routing'
-import { auth } from './firebase/index'
+import { auth } from '../firebase/index'
 
 export const Auth = ({ children }: any) => {
 
@@ -14,7 +13,6 @@ export const Auth = ({ children }: any) => {
 		() => {
 			if (!authUser) {
 				auth.onAuthStateChanged((user) => {
-					// console.log('user: ', user);
 					if (user) {
 						// TODO: do store the auth status after SignIn
 
@@ -27,6 +25,5 @@ export const Auth = ({ children }: any) => {
 		, []
 	)
 
-	// return isSigned ? children : <></>
 	return authUser ? children : <></>
 }

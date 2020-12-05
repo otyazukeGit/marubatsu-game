@@ -1,12 +1,12 @@
 import React, {useReducer} from 'react';
 import { BrowserRouter as Router , Switch , Route } from "react-router-dom"
 // import './App.css';
-import { Home } from './Home'
-import { Header } from './Header'
-import { SignUp } from './SignUp'
-import { SignIn } from './SignIn'
-import { Auth } from './Auth'
-import { Marubatsu } from './Marubatsu';
+import { Home } from './Page/Home'
+import { Header } from './Page/Header'
+import { SignUp } from './Page/SignUp'
+import { SignIn } from './Page/SignIn'
+import { Auth } from './Page/Auth'
+import { Marubatsu } from './Page/Marubatsu';
 import styled from 'styled-components'
 import { initialState } from './redux/initialState'
 import { reducer } from './redux/reducer'

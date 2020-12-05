@@ -1,11 +1,10 @@
-import React, {useEffect, useReducer, useState} from 'react'
+import React, {useEffect} from 'react'
 import styled from 'styled-components'
-// import { defaultItems } from './redux/initialState'
-import {ActionType} from './redux/actions'
-import {initialStateType, SelectItemsType} from './redux/initialState'
-import {selectItem, setResult, retryGame} from './redux/actions'
+import {ActionType} from '../redux/actions'
+import {initialStateType, SelectItemsType} from '../redux/initialState'
+import {selectItem, setResult, retryGame} from '../redux/actions'
 import {MarubatsuBox} from './MarubatsuBox'
-import {Pane} from './Pane'
+import {Pane} from '../Pane'
 
 type Props = {
 	state: initialStateType,

@@ -1,9 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import { PrimaryButton } from './UIkit/PrimaryButton'
+import { PrimaryButton } from '../UIkit/PrimaryButton'
 import { useHistory } from "react-router-dom";
-// import { Button } from '@material-ui/core';
-import { SimpleButton } from './UIkit/SimpleButton'
+import { SimpleButton } from '../UIkit/SimpleButton'
 type Props = {
 	auth: boolean
 }

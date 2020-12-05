@@ -1,4 +1,4 @@
-import {defaultInputSignIn, defaultInputValidate, defaultState, defaultValdateState, initialStateType} from './initialState'
+import {defaultInputValidate, defaultState, initialStateType} from './initialState'
 import {ActionType} from './actions'
 import {defaultItems} from './initialState'
 
