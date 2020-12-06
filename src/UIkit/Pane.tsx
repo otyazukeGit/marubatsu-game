@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { PrimaryButton } from './UIkit/PrimaryButton'
+import { PrimaryButton } from './PrimaryButton'
 
 type PaneType = {
 	finish:boolean,

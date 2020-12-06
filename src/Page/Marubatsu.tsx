@@ -4,7 +4,7 @@ import {ActionType} from '../redux/actions'
 import {initialStateType, SelectItemsType} from '../redux/initialState'
 import {selectItem, setResult, retryGame} from '../redux/actions'
 import {MarubatsuBox} from './MarubatsuBox'
-import {Pane} from '../Pane'
+import {Pane} from '../UIkit/Pane'
 
 type Props = {
 	state: initialStateType,

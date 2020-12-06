@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import Button from '@material-ui/core/Button';
 import { SimpleButton } from '../UIkit/SimpleButton';
 import { BasicModal } from '../UIkit/Modal'
+import { fontSize } from '@material-ui/system';
 
 type Props = {
 	user: {auth: boolean , userName: string},
@@ -26,9 +27,14 @@ export const Header:React.FC<Props> = (props) => {
 			})
 		}
 	
-		return (
+	return (
 		<div>
-			<h1>Marubatu Game</h1>
+			<HeaderTitle>
+				<i className="material-icons" style={{fontSize:30}}>donut_large</i>
+				<i className="material-icons" style={{fontSize:32}}>clear</i>
+				<div>　</div>
+				<h1>MaruBatu Game</h1>
+			</HeaderTitle>
 			<BasicModal dispatch={props.dispatch} isOpen={props.isOpen} msg={"Sign Out!"}></BasicModal>
 			<HeaderArea>
 				<Button aria-controls="simple-menu" aria-haspopup="true" onClick={() => history.push('/')}>TOP</Button>
@@ -49,6 +55,12 @@ export const Header:React.FC<Props> = (props) => {
 	)
 }
 
+const HeaderTitle = styled.div`
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-left: 10px;
+`
 const HeaderArea = styled.div`
 	width: 100%;
 	display: flex;
