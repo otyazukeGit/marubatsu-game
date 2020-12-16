@@ -13,7 +13,7 @@ import { reducer } from './redux/reducer'
 
 function App() {
 	const [state, dispatch] = useReducer(reducer, initialState)
-	console.log('state: ', state);
+	// console.log('state: ', state);
 
 
 	return (

@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { auth, FirebaseTimestamp } from '../firebase/index'
+import { auth, FirebaseTimestamp, db } from '../firebase/index'
 import { ActionType, inputValidateSignUp, signIn } from '../redux/actions'
 import { InputSignUpType } from '../redux/initialState'
 import styled from 'styled-components'
@@ -65,7 +65,7 @@ export const SignUp:React.FC<Props> = (props) => {
 }
 
 const authSignUp = async (userName: string, email: string, password: string, confirmPassword: string, history:any, dispatch:any) => {
-	console.log('authSignUp');
+	// console.log('authSignUp');
 	//Validation
 	if (userName === '' || email === '' || password === '' || confirmPassword === '') {
 		dispatch(inputValidateSignUp('top', 'Please fill out the required informations.'))
@@ -87,21 +87,22 @@ const authSignUp = async (userName: string, email: string, password: string, con
 	// Sign Up
 	await auth.createUserWithEmailAndPassword(email, password)
 		.then(result => {
-			console.log('Response auth Sign Up');
+			// console.log('Response auth Sign Up');
 			// console.log('result: ', result);
 			const user = result.user
 			if (user) {
 				const uid = user.uid
 				const timestamp = FirebaseTimestamp.now()
 
-				const userInitialDate = {
-					created_at: timestamp,
-					email: email,
-					role: "customer",
-					uid: uid,
-					updated_at: timestamp,
-					userName: userName
-				}
+				// DB
+				const dbDoc = db.collection('User').doc(uid)
+
+				// DB data insert
+				const result = dbDoc.set({
+					userName: userName,
+					timestamp: timestamp
+				})
+				// console.log('result: ', result)
 
 				// transition to Marubatsu page.
 				history.push('/marubatsu')

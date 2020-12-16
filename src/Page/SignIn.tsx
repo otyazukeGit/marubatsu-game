@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory } from "react-router-dom";
 import firebase from 'firebase'
-import { auth, FirebaseTimestamp } from '../firebase/index'
+import { auth, FirebaseTimestamp, db } from '../firebase/index'
 import { ActionType, signIn, inputValidateSignIn } from '../redux/actions';
 import { InputSignInType } from '../redux/initialState'
 import styled from 'styled-components'
@@ -19,7 +19,7 @@ export const SignIn:React.FC<Props> = (props) => {
 	const [email, setEmail]: [string, React.Dispatch<React.SetStateAction<string>>] = useState<string>(""),
 		[password, setPassword]: [string, React.Dispatch<React.SetStateAction<string>>] = useState<string>("")
 
-	console.log('props.validation: ', props.validation);
+	// console.log('props.validation: ', props.validation);
 
 	return (
 		<Container>
@@ -69,22 +69,32 @@ const authSignIn = async (email: string, password: string, history:any, dispatch
 		.then(async () => {
 			await auth.signInWithEmailAndPassword(email, password)
 			.then(result => {
-				console.log('Response auth Sign In');
+				// console.log('Response auth Sign In');
 				// console.log('result: ', result);
 				const user = result.user
 				if (user) {
 					const uid = user.uid
+					// console.log('uid: ', uid);
 					const userName = user.displayName
 					const timestamp = FirebaseTimestamp.now()
-		
-					// transition to Marubatsu page.
-					history.push('/marubatsu')
 
-					dispatch(signIn('Player 1'))
-					if(uid){
-						console.log('userName: ', userName);
-					}
-					
+					// DB
+					const dbDoc = db.collection('User').doc(uid)
+
+					// DB data get
+					db.collection('User').get()
+					.then((snapshot) => {
+						snapshot.forEach((doc) => {
+							// transition to Marubatsu page.
+							history.push('/marubatsu')
+
+							dispatch(signIn(doc.data().userName))
+						});
+					})
+					.catch((err) => {
+					  console.log('Error getting documents', err);
+					});
+
 				}
 			}).catch(error => {
 				console.log('SignIn error : ', error);
@@ -97,9 +107,6 @@ const authSignIn = async (email: string, password: string, history:any, dispatch
 			return false
 		})
 
-		
-	
-	console.log('end');
 	return true
 }
 

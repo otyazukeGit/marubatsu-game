@@ -6,7 +6,6 @@ import styled from 'styled-components'
 import Button from '@material-ui/core/Button';
 import { SimpleButton } from '../UIkit/SimpleButton';
 import { BasicModal } from '../UIkit/Modal'
-import { fontSize } from '@material-ui/system';
 
 type Props = {
 	user: {auth: boolean , userName: string},
@@ -19,7 +18,7 @@ export const Header:React.FC<Props> = (props) => {
 	const SignOut = async () => {
 		await auth.signOut()
 			.then(result => {
-				console.log('SignOut! ', result);
+				// console.log('SignOut! ', result);
 				history.push('/')
 				props.dispatch(signOut())
 			}).catch(error => {
@@ -35,7 +34,7 @@ export const Header:React.FC<Props> = (props) => {
 				<div>　</div>
 				<h1>MaruBatu Game</h1>
 			</HeaderTitle>
-			<BasicModal dispatch={props.dispatch} isOpen={props.isOpen} msg={"Sign Out!"}></BasicModal>
+			<BasicModal dispatch={props.dispatch} isOpen={props.isOpen} msg={"Sign Out"}></BasicModal>
 			<HeaderArea>
 				<Button aria-controls="simple-menu" aria-haspopup="true" onClick={() => history.push('/')}>TOP</Button>
 				<Button aria-controls="simple-menu" aria-haspopup="true" onClick={() => history.push('/marubatsu')}>Marubatsu</Button>

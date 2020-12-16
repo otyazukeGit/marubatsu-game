@@ -47,8 +47,8 @@ export const defaultInputSignIn: InputSignInType = {
 	"password": defaultValdateState,
 }
 export const defaultInputValidate: InputValidateType = {
-	signIn: defaultInputSignIn,
-	signUp: defaultInputSignUp
+	signIn: Object.assign({}, defaultInputSignIn),
+	signUp: Object.assign({}, defaultInputSignUp)
 }
 
 export const defaultItems: SelectItemsType[] = [
@@ -68,15 +68,9 @@ export const defaultState: initialStateType = {
 	user: {auth: false , userName: ''},
 	resultMessaage: '',
 	finish: false,
-	// selectedItems: Array.from(defaultItems)
-	// selectedItems: [ ...defaultItems ]
-	// selectedItems: defaultItems.map(v => v)
-	// selectedItems: defaultItems.concat()
-	// selectedItems: Object.assign({}, defaultItems),
 	selectedItems: JSON.parse(JSON.stringify(defaultItems)),
 	isOpen: false,
 	inputValidate: JSON.parse(JSON.stringify(defaultInputValidate)),
-	// inputValidate: Object.assign({}, defaultInputValidate),
 }
 
 

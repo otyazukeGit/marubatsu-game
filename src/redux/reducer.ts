@@ -29,7 +29,7 @@ export const reducer = (state: initialStateType, action: ActionType) => {
 
 		case 'signOut':
 			console.log('signOut');
-			const newState = Object.assign({}, defaultState)
+			const newState = Object.assign({}, JSON.parse(JSON.stringify(defaultState)), {isOpen: true})
 			return Object.assign({}, newState)
 
 		case 'retryGame':
