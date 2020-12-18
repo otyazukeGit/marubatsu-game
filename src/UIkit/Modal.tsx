@@ -1,5 +1,5 @@
 import React from 'react'
-import Modal from 'react-modal'
+import Modal, {Styles} from 'react-modal'
 import { ActionType } from '../redux/actions'
 import { SimpleButton } from './SimpleButton'
 import { closeModal } from '../redux/actions'
@@ -11,7 +11,13 @@ type Props = {
 	msg: string
 }
 
-const customStyles = {
+const customStyles:Styles = {
+	overlay: {
+		position: "fixed",
+		top: 0,
+		left: 0,
+		backgroundColor: "rgba(0,0,0 ,0.5)"
+	},
 	content : {
 		top        : '40%',
 		left       : '40%',

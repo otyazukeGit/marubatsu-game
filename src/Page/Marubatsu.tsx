@@ -58,6 +58,7 @@ export const Marubatsu:React.FC<Props> = (props) => {
 				reset={() => reset()}
 			/>
 			<Container className="Container">
+				<div>please click any one Box.</div>
 				<Area>
 					{props.state.selectedItems.map((items:SelectItemsType, index:number) => (
 						<MarubatsuBox 

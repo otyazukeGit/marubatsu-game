@@ -11,7 +11,7 @@ export const reducer = (state: initialStateType, action: ActionType) => {
 			const newItem = state.selectedItems[action.selectIndex]
 			newItem.selected = true
 			newItem.itemType = action.itemType
-			newItem.item = action.itemType === 'circle' ? '○' : '✕'
+			newItem.item = action.itemType === 'circle' ? '◯' : '✕'
 			const newSelectedItems = state.selectedItems
 			newSelectedItems.splice(action.selectIndex,1,newItem)
 			return Object.assign({}, state, {...state, selectedItems:newSelectedItems})
