@@ -58,14 +58,14 @@ export const Marubatsu:React.FC<Props> = (props) => {
 			/>
 			<Container className="Container">
 				<h3>Results</h3>
-				<GameRecord>
+				<GameRecords>
 					{props.state.gameRecord.map((record:{winner:'USER'|'CPU'|'DRAW', count:number}) => 
-						<React.Fragment key={record.winner}>
+						<Record key={record.winner}>
 							<div>{record.winner == 'USER' ? props.state.user.userName : record.winner}</div>
-							<div>{':' + record.count}</div>
-						</React.Fragment>
+							<div>{'：' + record.count}</div>
+						</Record>
 					)}
-				</GameRecord>
+				</GameRecords>
 				<div>please click any one Box.</div>
 				<Area>
 					{props.state.selectedItems.map((items:SelectItemsType, index:number) => (
@@ -120,7 +120,11 @@ const Area = styled.div`
 	/ 100px 100px 100px
 	;
 `
-const GameRecord = styled.div`
+const Record = styled.div`
+	display: flex;
+	margin-right: 20px;
+`
+const GameRecords = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-content: center;
