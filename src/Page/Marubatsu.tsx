@@ -31,11 +31,10 @@ export const Marubatsu:React.FC<Props> = (props) => {
 			result = checkResult(props.state.selectedItems, checkItemType)
 			const player = checkItemType === 'circle' ? props.state.user.userName : 'CPU'
 			if(result) {
-				props.dispatch(setResult(player + ' Won!'))
+				props.dispatch(setResult(player + ' Won!', checkItemType == 'circle' ? 'USER' : 'CPU'))
 			} else {
 				if(selectCnt == 9){
-					// console.log('Draw!');
-					props.dispatch(setResult('Draw!'))
+					props.dispatch(setResult('Draw!', 'DRAW'))
 				} else if (itemType === 'cross'){
 					let choice:number = -1
 					while(choice < 0){
@@ -58,6 +57,15 @@ export const Marubatsu:React.FC<Props> = (props) => {
 				reset={() => reset()}
 			/>
 			<Container className="Container">
+				<h3>Results</h3>
+				<GameRecord>
+					{props.state.gameRecord.map((record:{winner:'USER'|'CPU'|'DRAW', count:number}) => 
+						<React.Fragment key={record.winner}>
+							<div>{record.winner == 'USER' ? props.state.user.userName : record.winner}</div>
+							<div>{':' + record.count}</div>
+						</React.Fragment>
+					)}
+				</GameRecord>
 				<div>please click any one Box.</div>
 				<Area>
 					{props.state.selectedItems.map((items:SelectItemsType, index:number) => (
@@ -79,7 +87,7 @@ export const Marubatsu:React.FC<Props> = (props) => {
 
 const checkResult = (selectedItems: SelectItemsType[], itemType: string) => {
 	const positionNumbers = [1, 2, 4, 8, 16, 32, 64, 128, 256]
-	const itemValue = itemType === 'circle' ? '○' : '✕'
+	const itemValue = itemType === 'circle' ? '◯' : '✕'
 	const selectedPosition = selectedItems.map((v, i) => v.item === itemValue ? positionNumbers[i] : 0)
 
 	// rows
@@ -99,9 +107,7 @@ const checkResult = (selectedItems: SelectItemsType[], itemType: string) => {
 const Container = styled.div`
 	display:flex;
 	flex-direction: column;
-	/* flex-direction: row; */
 	align-items: center;
-	justify-content: center;
 	min-height: 80vh;
 	margin: auto auto;
 `
@@ -113,5 +119,13 @@ const Area = styled.div`
 	" area area area" 100px
 	/ 100px 100px 100px
 	;
+`
+const GameRecord = styled.div`
+	display: flex;
+	flex-direction: row;
+	align-content: center;
+	justify-content: space-around;
+	width: 300px;
+	margin-bottom:30px;
 `
 

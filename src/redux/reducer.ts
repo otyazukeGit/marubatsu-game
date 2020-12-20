@@ -18,7 +18,10 @@ export const reducer = (state: initialStateType, action: ActionType) => {
 
 		case 'setResult':
 			console.log('setResult');
-			return Object.assign({}, state, {...state, resultMessaage:action.msg, finish:true})
+			const newGameRecord = state.gameRecord.map(record => 
+				record.winner === action.winner ? Object.assign({}, record, {...record, count:record.count + 1}) : record
+			)
+			return Object.assign({}, state, {...state, resultMessaage:action.msg, finish:true, gameRecord:JSON.parse(JSON.stringify(newGameRecord)) })
 
 		case 'signIn':
 			console.log('signIn');

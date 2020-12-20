@@ -1,5 +1,5 @@
 export type SelectItemType = {type: 'selectItem', selectIndex: number, itemType: ''|'circle'|'cross'}
-export type SetResultType = {type: 'setResult', msg: string}
+export type SetResultType = {type: 'setResult', msg: string, winner: 'USER'|'CPU'|'DRAW'}
 export type SignInType = {type: 'signIn', userName: string}
 export type SignOutType = {type: 'signOut'}
 export type RetryGameType = {type: 'retryGame'}
@@ -12,8 +12,8 @@ export type ActionType = SelectItemType | SetResultType | SignInType | SignOutTy
 export const selectItem = (selectIndex: number, itemType: ''|'circle'|'cross'):SelectItemType => {
 	return {type: 'selectItem', selectIndex:selectIndex, itemType:itemType}
 }
-export const setResult = (msg: string):SetResultType => {
-	return {type: 'setResult', msg:msg}
+export const setResult = (msg: string, winner: 'USER'|'CPU'|'DRAW'):SetResultType => {
+	return {type: 'setResult', msg:msg, winner:winner}
 }
 export const signIn = (userName: string):SignInType => {
 	return {type: 'signIn', userName:userName}

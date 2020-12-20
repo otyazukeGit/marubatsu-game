@@ -1,15 +1,6 @@
 type ValidateStateType = {error: boolean, message: string}
 export const defaultValdateState: ValidateStateType = {error: false, message: ''}
 
-export type initialStateType = {
-	user: {auth: boolean , userName: string},
-	resultMessaage: string,
-	finish: boolean,
-	selectedItems: SelectItemsType[],
-	isOpen: boolean,
-	inputValidate: InputValidateType
-}
-
 export type SelectItemsType = {
 	index:number,
 	selected:boolean,
@@ -64,10 +55,21 @@ export const defaultItems: SelectItemsType[] = [
 ]
 
 
+export type initialStateType = {
+	user: {auth: boolean , userName: string},
+	resultMessaage: string,
+	finish: boolean,
+	gameRecord: [{winner:'USER', count:number}, {winner:'CPU', count:number}, {winner:'DRAW', count:number}],
+	selectedItems: SelectItemsType[],
+	isOpen: boolean,
+	inputValidate: InputValidateType
+}
+
 export const defaultState: initialStateType = {
 	user: {auth: false , userName: ''},
 	resultMessaage: '',
 	finish: false,
+	gameRecord: [{winner:'USER', count:0}, {winner:'CPU', count:0}, {winner:'DRAW', count:0}],
 	selectedItems: JSON.parse(JSON.stringify(defaultItems)),
 	isOpen: false,
 	inputValidate: JSON.parse(JSON.stringify(defaultInputValidate)),
