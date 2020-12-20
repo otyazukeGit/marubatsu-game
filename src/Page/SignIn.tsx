@@ -69,32 +69,22 @@ const authSignIn = async (email: string, password: string, history:any, dispatch
 		.then(async () => {
 			await auth.signInWithEmailAndPassword(email, password)
 			.then(result => {
-				// console.log('Response auth Sign In');
-				// console.log('result: ', result);
+				// console.log('Response auth Sign In : ', result);
 				const user = result.user
 				if (user) {
 					const uid = user.uid
-					// console.log('uid: ', uid);
-					const userName = user.displayName
-					const timestamp = FirebaseTimestamp.now()
-
 					// DB
 					const dbDoc = db.collection('User').doc(uid)
-
-					// DB data get
-					db.collection('User').get()
-					.then((snapshot) => {
-						snapshot.forEach((doc) => {
-							// transition to Marubatsu page.
-							history.push('/marubatsu')
-
-							dispatch(signIn(doc.data().userName))
-						});
+					dbDoc.get()
+					.then(doc => {
+						// transition to Marubatsu page.
+						history.push('/marubatsu')
+						const userName = doc.data()?.userName ? doc.data()?.userName : 'User'
+						dispatch(signIn(userName))
 					})
 					.catch((err) => {
 					  console.log('Error getting documents', err);
 					});
-
 				}
 			}).catch(error => {
 				console.log('SignIn error : ', error);
