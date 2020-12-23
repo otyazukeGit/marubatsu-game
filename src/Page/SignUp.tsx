@@ -31,13 +31,13 @@ export const SignUp:React.FC<Props> = (props) => {
 				<ErrorBox msg={props.validation.top.message}></ErrorBox>
 			}
 			<TextInput
-				errorCondition={props.validation.email.error} helperText={props.validation.email.message}
+				errorCondition={props.validation.userName.error} helperText={props.validation.userName.message}
 				fullWidth={false} width={300} label={'User Name'} multiline={false}
 				required={true} rows={1} value={userName} type={"text"}
 				onChange={inputUserName}
 			/>
 			<TextInput
-				errorCondition={props.validation.userName.error} helperText={props.validation.userName.message}
+				errorCondition={props.validation.email.error} helperText={props.validation.email.message}
 				fullWidth={false} width={300} label={'Email Address'} multiline={false}
 				required={true} rows={1} value={email} type={"email"}
 				onChange={(e: { target: { value: React.SetStateAction<string> } }) => setEmail(e.target.value)}
@@ -79,6 +79,10 @@ const authSignUp = async (userName: string, email: string, password: string, con
 		dispatch(inputValidateSignUp('password', 'At least 6 characters'))
 		return
 	}
+	if(!password.match(/(a-zA-Z0-9~`!\@#\$%\^&\*\(\)-_\+=\|\}\]\{\["':;\?\/>\.<,)*/)){
+		dispatch(inputValidateSignUp('password', 'Invalid Email Address format.'))
+		return
+	}
 	if (password !== confirmPassword) {
 		dispatch(inputValidateSignUp('confirmPassword', 'Password does not match.'))
 		return
@@ -112,7 +116,20 @@ const authSignUp = async (userName: string, email: string, password: string, con
 			}
 		}).catch(error => {
 			console.log('Sign Up error: ', error);
-			dispatch(inputValidateSignUp('top', 'Sorry, Server Error. please try again later.'))
+			if(error.code == 'auth/email-already-in-use'){
+				dispatch(inputValidateSignUp('email', 'The email address is already in use by another account.'))
+			} else if(error.code == 'auth/invalid-email'){
+				console.log('error: ', error);
+				dispatch(inputValidateSignUp('email', 'Invalid email address.'))
+			} else if(error.code == 'auth/invalid-password'){
+				console.log('error: ', error);
+				dispatch(inputValidateSignUp('password', 'Invalid password.'))
+			} else if(error.code == 'auth/invalid-argument'){
+				console.log('error: ', error);
+				dispatch(inputValidateSignUp('top', 'Invalid input.'))
+			}else {
+				dispatch(inputValidateSignUp('top', 'Sorry, Server Error. please try again later.'))
+			}
 			return
 		})
 }

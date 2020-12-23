@@ -88,7 +88,11 @@ const authSignIn = async (email: string, password: string, history:any, dispatch
 				}
 			}).catch(error => {
 				console.log('SignIn error : ', error);
-				dispatch(inputValidateSignIn('top', 'Sorry, Server Error. please try again later.'))
+				if(error.code == 'auth/user-not-found'){
+					dispatch(inputValidateSignIn('top', 'There is no user record corresponding to this identifier. The user may have been deleted.'))
+				}else {
+					dispatch(inputValidateSignIn('top', 'Sorry, Server Error. please try again later.'))
+				}
 				return
 			})		
 		}).catch(error => {
