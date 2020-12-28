@@ -27,7 +27,7 @@ export const Header:React.FC<Props> = (props) => {
 		}
 	
 	return (
-		<div>
+		<Nav>
 			<HeaderTitle>
 				<i className="material-icons" style={{fontSize:30}}>donut_large</i>
 				<i className="material-icons" style={{fontSize:32}}>clear</i>
@@ -50,10 +50,14 @@ export const Header:React.FC<Props> = (props) => {
 					}
 				</RightArea>
 			</HeaderArea>
-		</div>
+		</Nav>
 	)
 }
-
+const Nav = styled.nav`
+	@media screen and (min-width:800px){
+		width: 80vw;
+	}
+`
 const HeaderTitle = styled.div`
 	display: flex;
 	flex-direction: row;

@@ -50,7 +50,7 @@ export const Marubatsu:React.FC<Props> = (props) => {
 	)
 
 	return (
-		<div>
+		<Main>
 			<Pane 
 				finish={props.state.finish} 
 				msg={props.state.resultMessaage} 
@@ -81,7 +81,7 @@ export const Marubatsu:React.FC<Props> = (props) => {
 					))}
 				</Area>
 			</Container>
-		</div>
+		</Main>
 	)
 }
 
@@ -104,6 +104,11 @@ const checkResult = (selectedItems: SelectItemsType[], itemType: string) => {
 	return false
 }
 
+const Main = styled.main`
+	@media screen and (min-width:800px){
+		width: 80vw;
+	}
+`
 const Container = styled.div`
 	display:flex;
 	flex-direction: column;
