@@ -32,25 +32,25 @@ export const SignUp:React.FC<Props> = (props) => {
 			}
 			<TextInput
 				errorCondition={props.validation.userName.error} helperText={props.validation.userName.message}
-				fullWidth={false} width={300} label={'User Name'} multiline={false}
+				fullWidth={false} width={320} label={'User Name'} multiline={false}
 				required={true} rows={1} value={userName} type={"text"}
 				onChange={inputUserName}
 			/>
 			<TextInput
 				errorCondition={props.validation.email.error} helperText={props.validation.email.message}
-				fullWidth={false} width={300} label={'Email Address'} multiline={false}
+				fullWidth={false} width={320} label={'Email Address'} multiline={false}
 				required={true} rows={1} value={email} type={"email"}
 				onChange={(e: { target: { value: React.SetStateAction<string> } }) => setEmail(e.target.value)}
 			/>
 			<TextInput
 				errorCondition={props.validation.password.error} helperText={props.validation.password.message}
-				fullWidth={false} width={300} label={'Password (at least 6 characters)'} multiline={false}
+				fullWidth={false} width={320} label={'Password (at least 6 characters)'} multiline={false}
 				required={true} rows={1} value={password} type={"password"}
 				onChange={(e: { target: { value: React.SetStateAction<string> } }) => setPassword(e.target.value)}
 			/>
 			<TextInput
 				errorCondition={props.validation.confirmPassword.error} helperText={props.validation.confirmPassword.message}
-				fullWidth={false} width={300} label={'Confirm Password (at least 6 characters)'} multiline={false}
+				fullWidth={false} width={320} label={'Confirm Password (at least 6 characters)'} multiline={false}
 				required={true} rows={1} value={confirmPassword} type={"password"}
 				onChange={(e: { target: { value: React.SetStateAction<string> } }) => setConfirmPassword(e.target.value)}
 			/>

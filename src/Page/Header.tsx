@@ -37,7 +37,9 @@ export const Header:React.FC<Props> = (props) => {
 			<BasicModal dispatch={props.dispatch} isOpen={props.isOpen} msg={"Sign Out"}></BasicModal>
 			<HeaderArea>
 				<Button aria-controls="simple-menu" aria-haspopup="true" onClick={() => history.push('/')}>TOP</Button>
-				<Button aria-controls="simple-menu" aria-haspopup="true" onClick={() => history.push('/marubatsu')}>Marubatsu</Button>
+				{!props.user.auth && 
+					<Button aria-controls="simple-menu" aria-haspopup="true" onClick={() => history.push('/marubatsu')}>Marubatsu</Button>
+				}
 				<RightArea>
 					{props.user.auth && 
 						<React.Fragment>

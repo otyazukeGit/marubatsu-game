@@ -25,14 +25,15 @@ export const Home:React.FC<Props> = (props) => {
 				<p>The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row is the winner.</p>
 				<p>References: <a href="https://en.wikipedia.org/wiki/Tic-tac-toe">wikipedia</a></p>
 			</details>
-			<p>Please join us and enjoy the Marubatsu Game!</p>
 			{props.auth === false &&
-				<ButtonArea>
-					<PrimaryButton label={"Sign In"} width={120} onClick={() => history.push('/signin')} />
-					<SimpleButton label={"Sign Up"} onClick={() => history.push('/signup')} />
-				</ButtonArea>
+				<React.Fragment>
+					<p>Please join us and enjoy the Marubatsu Game!</p>
+					<ButtonArea>
+						<PrimaryButton label={"Sign In"} width={120} onClick={() => history.push('/signin')} />
+						<SimpleButton label={"Sign Up"} onClick={() => history.push('/signup')} />
+					</ButtonArea>
+				</React.Fragment>
 			}
-			{/* <img src="../../public/400px-Tic_tac_toe.svg.png" /> */}
 		</Container>
 	)
 }
