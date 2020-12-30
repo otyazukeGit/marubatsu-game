@@ -29,8 +29,8 @@ export const Home:React.FC<Props> = (props) => {
 				<React.Fragment>
 					<p>Please join us and enjoy the Marubatsu Game!</p>
 					<ButtonArea>
-						<PrimaryButton label={"Sign In"} width={120} onClick={() => history.push('/signin')} />
-						<SimpleButton label={"Sign Up"} onClick={() => history.push('/signup')} />
+						<PrimaryButton label={"Sign Up"} width={120} onClick={() => history.push('/signup')} />
+						<SimpleButton label={"Sign In"} onClick={() => history.push('/signin')} />
 					</ButtonArea>
 				</React.Fragment>
 			}

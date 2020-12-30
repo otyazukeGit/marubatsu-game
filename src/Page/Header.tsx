@@ -32,7 +32,7 @@ export const Header:React.FC<Props> = (props) => {
 				<i className="material-icons" style={{fontSize:30}}>donut_large</i>
 				<i className="material-icons" style={{fontSize:32}}>clear</i>
 				<div>　</div>
-				<h1>MaruBatu Game</h1>
+				<h1>MaruBatsu Game</h1>
 			</HeaderTitle>
 			<BasicModal dispatch={props.dispatch} isOpen={props.isOpen} msg={"Sign Out"}></BasicModal>
 			<HeaderArea>
