@@ -34,4 +34,7 @@ test('Home page : click [Rule]', async () => {
 	fireEvent.click(screen.getByText('Rule'))
 	expect(screen.getByText(/Marubatsu Game is a paper-and-pencil game for two players, X and O, who take turns marking the spaces in a 3×3 grid./)).toBeVisible()
 	expect(screen.getByText(/The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row is the winner./)).toBeVisible()
+	fireEvent.click(screen.getByText('Rule'))
+	expect(screen.getByText(/Marubatsu Game is a paper-and-pencil game for two players, X and O, who take turns marking the spaces in a 3×3 grid./)).not.toBeVisible()
+	expect(screen.getByText(/The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row is the winner./)).not.toBeVisible()
 });
