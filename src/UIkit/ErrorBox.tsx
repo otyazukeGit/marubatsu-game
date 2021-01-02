@@ -1,7 +1,7 @@
 import React from 'react'
 import Box from '@material-ui/core/Box'
 
-type Props = { msg:string }
+type Props = { msg: string }
 // const useStyles = makeStyles({
 // 	"box": {
 // 		textTransform: "none",
@@ -10,15 +10,15 @@ type Props = { msg:string }
 // 	}
 // })
 
-export const ErrorBox:React.FC<Props> = (props) => {
-	// const styles = {}
-	return (
-		<Box 
-			color="error.main"
-			// bgcolor="error.main"
-			// style={useStyles.box}
-		>
-			{props.msg}
-		</Box>
-	)
+export const ErrorBox: React.FC<Props> = (props) => {
+  // const styles = {}
+  return (
+    <Box
+      color="error.main"
+      // bgcolor="error.main"
+      // style={useStyles.box}
+    >
+      {props.msg}
+    </Box>
+  )
 }

@@ -27,7 +27,7 @@
     "pragma": "React"
   },
   "rules": {
-    "@typescript-eslint/indent": ["error", "tab"],
+    "@typescript-eslint/indent": ["error", 2],
     "@typescript-eslint/prefer-interface": "off",
     "react/jsx-filename-extension": [
       "error",
