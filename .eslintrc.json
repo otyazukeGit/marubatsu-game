@@ -1,41 +1,39 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
     },
-    "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "plugin:@typescript-eslint/recommended"
-    ],
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 12,
-        "sourceType": "module"
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": ["react", "@typescript-eslint"],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
     },
-    "plugins": [
-        "react",
-        "@typescript-eslint"
+    "pragma": "React"
+  },
+  "rules": {
+    "@typescript-eslint/indent": ["error", "tab"],
+    "@typescript-eslint/prefer-interface": "off",
+    "react/jsx-filename-extension": [
+      "error",
+      { "extensions": [".jsx", ".tsx"] }
     ],
-	"settings": {
-	  "import/resolver": {
-	    "node": {
-	      "extensions": [".js", ".jsx", ".ts", ".tsx"]
-	    }
-	  }
-	  ,"pragma": "React"
-	},
-	"rules": {
-	  "@typescript-eslint/indent": ["error", "tab"],
-	  "@typescript-eslint/prefer-interface": "off",
-	  "react/jsx-filename-extension": [
-	    "error",
-	    { "extensions": [".jsx", ".tsx"] }
-	  ],
-	  "react/prop-types": "off",
-	  "spaced-comment": ["error", "always", { "markers": ["/ <reference"] }]
-	}
+    "react/prop-types": "off",
+    "spaced-comment": ["error", "always", { "markers": ["/ <reference"] }]
+  }
 }
