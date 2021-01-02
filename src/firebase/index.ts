@@ -9,7 +9,7 @@ export const auth = firebase.auth()
 export const FirebaseTimestamp = firebase.firestore.Timestamp
 
 import 'firebase/functions'
-export let db = firebase.firestore()
+export const db = firebase.firestore()
 
 // import functions from 'firebase-functions'
 // admin.initializeApp(functions.config().firebase);

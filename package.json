@@ -30,7 +30,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+	 "eslint": "yarn eslint . --ext .tsx --ext .ts",
+	 "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": []
@@ -48,6 +49,10 @@
     ]
   },
   "devDependencies": {
-    "@firebase/rules-unit-testing": "^1.1.6"
+    "@firebase/rules-unit-testing": "^1.1.6",
+    "@typescript-eslint/eslint-plugin": "^4.11.1",
+    "@typescript-eslint/parser": "^4.11.1",
+    "eslint": "^7.16.0",
+    "eslint-plugin-react": "^7.22.0"
   }
 }

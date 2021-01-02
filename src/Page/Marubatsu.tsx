@@ -26,9 +26,8 @@ export const Marubatsu:React.FC<Props> = (props) => {
 	
 	useEffect(
 		() => {
-			let result
 			const checkItemType = selectCnt % 2 !== 0 ? 'circle' : 'cross'
-			result = checkResult(props.state.selectedItems, checkItemType)
+			const result = checkResult(props.state.selectedItems, checkItemType)
 			const player = checkItemType === 'circle' ? props.state.user.userName : 'CPU'
 			if(result) {
 				props.dispatch(setResult(player + ' Won!', checkItemType == 'circle' ? 'USER' : 'CPU'))
@@ -36,7 +35,7 @@ export const Marubatsu:React.FC<Props> = (props) => {
 				if(selectCnt == 9){
 					props.dispatch(setResult('Draw!', 'DRAW'))
 				} else if (itemType === 'cross'){
-					let choice:number = -1
+					let choice = -1
 					while(choice < 0){
 						let random = Math.round(Math.random() * 10)
 						if(random == 10) random = 0

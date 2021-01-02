@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { ReactChild, ReactElement, useEffect } from 'react'
 import { useHistory } from "react-router-dom";
 import { auth } from '../firebase/index'
 
-export const Auth = ({ children }: any) => {
+export const Auth = ({ children }:any) => {
 
 	const history = useHistory()
 

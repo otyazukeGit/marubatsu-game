@@ -17,8 +17,8 @@ type Props = {
 }
 
 export const TextInput:React.FC<Props> = (props) => {
-	let styles = {
-		textFld: { width: 0}   //assign the width as your requirement
+	const styles = {
+		textFld: { width: 0}   // assign the width as your requirement
 	}
 	// console.log('styles: ', styles);
 	// console.log('props.width: ', props.width);

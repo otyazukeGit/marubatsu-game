@@ -1,4 +1,4 @@
-import React, {useReducer} from 'react';
+import React, {ReactElement, useReducer} from 'react';
 import { BrowserRouter as Router , Switch , Route } from "react-router-dom"
 // import './App.css';
 import { Home } from './Page/Home'
@@ -11,7 +11,7 @@ import styled from 'styled-components'
 import { initialState } from './redux/initialState'
 import { reducer } from './redux/reducer'
 
-function App() {
+function App():ReactElement {
 	const [state, dispatch] = useReducer(reducer, initialState)
 	// console.log('state: ', state);
 

@@ -16,9 +16,9 @@ export const Home:React.FC<Props> = (props) => {
 	return (
 		<Container>
 			<h2>Introduction</h2>
-			<p>Hi, there.</p>
-			<p>Have you ever heard of Marubatsu Game, or TIC TAC TOE?</p>
-			<p>It's easy and simple game.</p>
+			<p>{"Hi, there."}</p>
+			<p>{"Have you ever heard of Marubatsu Game, or TIC TAC TOE?"}</p>
+			<p>{"It's easy and simple game."}</p>
 			<details>
 				<summary>Rule</summary>
 				<p>Marubatsu Game is a paper-and-pencil game for two players, X and O, who take turns marking the spaces in a 3×3 grid.</p>

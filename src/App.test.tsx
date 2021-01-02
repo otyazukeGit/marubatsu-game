@@ -4,13 +4,12 @@ import App from './App';
 // import * as firebase from '@firebase/rules-unit-testing'
 
 const Test_HeaderArea = () => {
-		/* Header Area */
-		expect(screen.getByRole('heading', {name: 'MaruBatsu Game'})).toBeInTheDocument()
-		expect(screen.getByRole('button', {name: 'TOP'})).toBeInTheDocument()
-		expect(screen.getByRole('button', {name: 'Marubatsu'})).toBeInTheDocument()
-		const button_signup = screen.getAllByRole('button', {name: 'Sign Up'})
-		expect(button_signup[0]).toBeInTheDocument()  //Sign Up
-	
+	/* Header Area */
+	expect(screen.getByRole('heading', {name: 'MaruBatsu Game'})).toBeInTheDocument()
+	expect(screen.getByRole('button', {name: 'TOP'})).toBeInTheDocument()
+	expect(screen.getByRole('button', {name: 'Marubatsu'})).toBeInTheDocument()
+	const button_signup = screen.getAllByRole('button', {name: 'Sign Up'})
+	expect(button_signup[0]).toBeInTheDocument()  // Sign Up	
 }
 
 test('Home page : Initial Display', async () => {
@@ -33,7 +32,7 @@ test('Home page : Initial Display', async () => {
 	expect(screen.getByText(/References:/)).toBeInTheDocument()
 	expect(screen.getByRole('link', {name: 'wikipedia'})).toBeInTheDocument()
 	expect(screen.getByText(/Please join us and enjoy the Marubatsu Game!/)).toBeInTheDocument()
-	expect(button_signup[1]).toBeInTheDocument()  //Sign Up
+	expect(button_signup[1]).toBeInTheDocument()  // Sign Up
 	expect(screen.getByRole('button', {name: 'Sign In'})).toBeInTheDocument()
 });
 

@@ -13,12 +13,12 @@ type Props = {
 export const MarubatsuBox:React.FC<Props> = (props) => {
 
 	return (
-	<Box 
-		selected={props.selected} 
-		bg_color={Colors[props.itemType]}
-		onClick={() => props.choosePosition(props.selected, props.index)}>
-		{props.children}
-	</Box>
+		<Box 
+			selected={props.selected} 
+			bg_color={Colors[props.itemType]}
+			onClick={() => props.choosePosition(props.selected, props.index)}>
+			{props.children}
+		</Box>
 	)
 }
 

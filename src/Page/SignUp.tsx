@@ -64,14 +64,14 @@ export const SignUp:React.FC<Props> = (props) => {
 	)
 }
 
-const authSignUp = async (userName: string, email: string, password: string, confirmPassword: string, history:any, dispatch:any) => {
+const authSignUp = async (userName: string, email: string, password: string, confirmPassword: string, history:any, dispatch:React.Dispatch<ActionType>) => {
 	// console.log('authSignUp');
-	//Validation
+	// Validation
 	if (userName === '' || email === '' || password === '' || confirmPassword === '') {
 		dispatch(inputValidateSignUp('top', 'Please fill out the required informations.'))
 		return
 	}
-	if(!email.match(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)){
+	if(!email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)){
 		dispatch(inputValidateSignUp('email', 'Invalid Email Address format.'))
 		return
 	}
@@ -79,7 +79,7 @@ const authSignUp = async (userName: string, email: string, password: string, con
 		dispatch(inputValidateSignUp('password', 'At least 6 characters'))
 		return
 	}
-	if(!password.match(/(a-zA-Z0-9~`!\@#\$%\^&\*\(\)-_\+=\|\}\]\{\["':;\?\/>\.<,)*/)){
+	if(!password.match(/(a-zA-Z0-9~`!@#\$%\^&\*\(\)-_\+=\|\}\]\{\["':;\?\/>\.<,)*/)){
 		dispatch(inputValidateSignUp('password', 'Invalid Email Address format.'))
 		return
 	}
@@ -102,11 +102,10 @@ const authSignUp = async (userName: string, email: string, password: string, con
 				const dbDoc = db.collection('User').doc(uid)
 
 				// DB data insert
-				const result = dbDoc.set({
+				dbDoc.set({
 					userName: userName,
 					timestamp: timestamp
 				})
-				// console.log('result: ', result)
 
 				// transition to Marubatsu page.
 				history.push('/marubatsu')
@@ -144,9 +143,6 @@ const Container = styled.div`
 `
 const ButtonArea = styled.div`
 	margin: 30px auto;
-`
-const Message = styled.div`
-	color: black;
 `
 
 

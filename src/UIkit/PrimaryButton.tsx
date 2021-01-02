@@ -2,7 +2,11 @@ import React from 'react'
 import Button from '@material-ui/core/Button'
 import {makeStyles} from '@material-ui/styles'
 
-type Props = {width: number}
+type Props = {
+	width: number,
+	label: string,
+	onClick: () => void
+}
 
 const useStyles = makeStyles({
 	"button": (props: Props) => ({
@@ -17,8 +21,8 @@ const useStyles = makeStyles({
 	})
 })
 
-export const PrimaryButton = (props:any) => {
-	const classes = useStyles({width:props.width})
+export const PrimaryButton = (props:Props) => {
+	const classes = useStyles({ width:props.width } as Props)
 	return(
 		<Button className={classes.button} variant="contained" onClick={() => props.onClick()}>
 			{props.label}

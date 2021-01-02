@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory } from "react-router-dom";
 import firebase from 'firebase'
-import { auth, FirebaseTimestamp, db } from '../firebase/index'
+import { auth, db } from '../firebase/index'
 import { ActionType, signIn, inputValidateSignIn } from '../redux/actions';
 import { InputSignInType } from '../redux/initialState'
 import styled from 'styled-components'
@@ -49,13 +49,13 @@ export const SignIn:React.FC<Props> = (props) => {
 	)
 }
 
-const authSignIn = async (email: string, password: string, history:any, dispatch:any) => {
-	//Validation
+const authSignIn = async (email: string, password: string, history:any, dispatch:React.Dispatch<ActionType>) => {
+	// Validation
 	if (email === '' || password === '') {
 		dispatch(inputValidateSignIn('top', 'Please fill out the required informations.'))
 		return
 	}
-	if(!email.match(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)){
+	if(!email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)){
 		dispatch(inputValidateSignIn('email', 'Invalid Email Address format.'))
 		return
 	}
@@ -68,33 +68,33 @@ const authSignIn = async (email: string, password: string, history:any, dispatch
 	await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION)
 		.then(async () => {
 			await auth.signInWithEmailAndPassword(email, password)
-			.then(result => {
-				// console.log('Response auth Sign In : ', result);
-				const user = result.user
-				if (user) {
-					const uid = user.uid
-					// DB
-					const dbDoc = db.collection('User').doc(uid)
-					dbDoc.get()
-					.then(doc => {
-						// transition to Marubatsu page.
-						history.push('/marubatsu')
-						const userName = doc.data()?.userName ? doc.data()?.userName : 'User'
-						dispatch(signIn(userName))
-					})
-					.catch((err) => {
-					  console.log('Error getting documents', err);
-					});
-				}
-			}).catch(error => {
-				console.log('SignIn error : ', error);
-				if(error.code == 'auth/user-not-found'){
-					dispatch(inputValidateSignIn('top', 'There is no user record corresponding to this identifier. The user may have been deleted.'))
-				}else {
-					dispatch(inputValidateSignIn('top', 'Sorry, Server Error. please try again later.'))
-				}
-				return
-			})		
+				.then(result => {
+					// console.log('Response auth Sign In : ', result);
+					const user = result.user
+					if (user) {
+						const uid = user.uid
+						// DB
+						const dbDoc = db.collection('User').doc(uid)
+						dbDoc.get()
+							.then(doc => {
+								// transition to Marubatsu page.
+								history.push('/marubatsu')
+								const userName = doc.data()?.userName ? doc.data()?.userName : 'User'
+								dispatch(signIn(userName))
+							})
+							.catch((err) => {
+								console.log('Error getting documents', err);
+							});
+					}
+				}).catch(error => {
+					console.log('SignIn error : ', error);
+					if(error.code == 'auth/user-not-found'){
+						dispatch(inputValidateSignIn('top', 'There is no user record corresponding to this identifier. The user may have been deleted.'))
+					}else {
+						dispatch(inputValidateSignIn('top', 'Sorry, Server Error. please try again later.'))
+					}
+					return
+				})
 		}).catch(error => {
 			console.log('setPersistence error : ', error);
 			dispatch(inputValidateSignIn('top', 'Sorry, Server Error. please try again later.'))

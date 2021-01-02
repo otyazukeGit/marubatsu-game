@@ -17,22 +17,21 @@ export const Header:React.FC<Props> = (props) => {
 	const history = useHistory()
 	const SignOut = async () => {
 		await auth.signOut()
-			.then(result => {
+			.then(() => {
 				// console.log('SignOut! ', result);
 				history.push('/')
 				props.dispatch(signOut())
 			}).catch(error => {
 				if(error) console.log('error : ', error)
 			})
-		}
+	}
 	
 	return (
 		<Nav>
 			<HeaderTitle>
 				<i className="material-icons" style={{fontSize:30}}>donut_large</i>
 				<i className="material-icons" style={{fontSize:32}}>clear</i>
-				<div>　</div>
-				<h1>MaruBatsu Game</h1>
+				<HeaderName>MaruBatsu Game</HeaderName>
 			</HeaderTitle>
 			<BasicModal dispatch={props.dispatch} isOpen={props.isOpen} msg={"Sign Out"}></BasicModal>
 			<HeaderArea>
@@ -64,6 +63,9 @@ const HeaderTitle = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	margin-left: 10px;
+`
+const HeaderName = styled.h1`
 	margin-left: 10px;
 `
 const HeaderArea = styled.div`

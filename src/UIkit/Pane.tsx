@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 import { PrimaryButton } from './PrimaryButton'
 
@@ -8,7 +8,7 @@ type PaneType = {
 	reset: () => void
 }
 
-export const Pane = (props:PaneType) => {
+export const Pane = (props:PaneType):ReactElement => {
 
 	return (
 		<BasePane finish={props.finish} className="BasePane">

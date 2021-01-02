@@ -6,7 +6,7 @@ export const reducer = (state: initialStateType, action: ActionType) => {
 	let newUser
 	let newValidateItem
 	switch(action.type){
-		case 'selectItem':
+		case 'selectItem': {
 			console.log('selectItem');
 			const newItem = state.selectedItems[action.selectIndex]
 			newItem.selected = true
@@ -15,14 +15,14 @@ export const reducer = (state: initialStateType, action: ActionType) => {
 			const newSelectedItems = state.selectedItems
 			newSelectedItems.splice(action.selectIndex,1,newItem)
 			return Object.assign({}, state, {...state, selectedItems:newSelectedItems})
-
-		case 'setResult':
+		}
+		case 'setResult': {
 			console.log('setResult');
 			const newGameRecord = state.gameRecord.map(record => 
 				record.winner === action.winner ? Object.assign({}, record, {...record, count:record.count + 1}) : record
 			)
 			return Object.assign({}, state, {...state, resultMessaage:action.msg, finish:true, gameRecord:JSON.parse(JSON.stringify(newGameRecord)) })
-
+		}
 		case 'signIn':
 			console.log('signIn');
 			newUser = state.user
@@ -30,11 +30,11 @@ export const reducer = (state: initialStateType, action: ActionType) => {
 			newUser.userName = action.userName
 			return Object.assign({}, state, {...state, user:newUser, inputValidate: Object.assign({}, defaultInputValidate)} )
 
-		case 'signOut':
+		case 'signOut': {
 			console.log('signOut');
 			const newState = Object.assign({}, JSON.parse(JSON.stringify(defaultState)), {isOpen: true})
 			return Object.assign({}, newState)
-
+		}
 		case 'retryGame':
 			return Object.assign({}, state, {...state, resultMessaage:'', finish:false, selectedItems:JSON.parse(JSON.stringify(defaultItems)) })
 
