@@ -8,6 +8,7 @@ import styled from 'styled-components'
 import { TextInput } from '../UIkit/TextInput'
 import { PrimaryButton } from '../UIkit/PrimaryButton'
 import { ErrorBox } from '../UIkit/ErrorBox'
+import * as H from 'history'
 
 type Props = {
   validation: InputSignInType
@@ -77,7 +78,7 @@ export const SignIn: React.FC<Props> = (props) => {
 const authSignIn = async (
   email: string,
   password: string,
-  history: any,
+  history: H.History<H.LocationState>,
   dispatch: React.Dispatch<ActionType>
 ) => {
   // Validation

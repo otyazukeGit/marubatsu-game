@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/styles'
 
@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   }),
 })
 
-export const PrimaryButton = (props: Props) => {
+export const PrimaryButton = (props: Props): ReactElement => {
   const classes = useStyles({ width: props.width } as Props)
   return (
     <Button

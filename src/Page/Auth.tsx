@@ -1,4 +1,4 @@
-import React, { ReactChild, ReactElement, useEffect } from 'react'
+import React, { ReactElement, ReactNode, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { auth } from '../firebase/index'
 
@@ -11,9 +11,7 @@ export const Auth = ({ children }: any) => {
   useEffect(() => {
     if (!authUser) {
       auth.onAuthStateChanged((user) => {
-        if (user) {
-          // TODO: do store the auth status after SignIn
-        } else {
+        if (!user) {
           history.push('/signin')
         }
       })

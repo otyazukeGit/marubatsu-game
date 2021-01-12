@@ -6,7 +6,10 @@ import {
 import { ActionType } from './actions'
 import { defaultItems } from './initialState'
 
-export const reducer = (state: initialStateType, action: ActionType) => {
+export const reducer = (
+  state: initialStateType,
+  action: ActionType
+): initialStateType => {
   let newUser
   let newValidateItem
   switch (action.type) {

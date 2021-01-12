@@ -7,6 +7,7 @@ import styled from 'styled-components'
 import { TextInput } from '../UIkit/TextInput'
 import { PrimaryButton } from '../UIkit/PrimaryButton'
 import { ErrorBox } from '../UIkit/ErrorBox'
+import * as H from 'history'
 
 type Props = {
   validation: InputSignUpType
@@ -14,7 +15,7 @@ type Props = {
 }
 
 export const SignUp: React.FC<Props> = (props) => {
-  const history = useHistory()
+  const history: H.History<H.LocationState> = useHistory()
   const [userName, setUserName]: [
       string,
       React.Dispatch<React.SetStateAction<string>>
@@ -128,7 +129,7 @@ const authSignUp = async (
   email: string,
   password: string,
   confirmPassword: string,
-  history: any,
+  history: H.History<H.LocationState>,
   dispatch: React.Dispatch<ActionType>
 ) => {
   // console.log('authSignUp');
