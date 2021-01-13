@@ -1,19 +1,27 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { ActionType } from '../redux/actions'
-import { initialStateType, SelectItemsType } from '../redux/initialState'
+import { SelectItemsType } from '../redux/initialState'
 import { selectItem, setResult, retryGame } from '../redux/actions'
 import { MarubatsuBox } from './MarubatsuBox'
 import { Pane } from '../UIkit/Pane'
 
 type Props = {
-  state: initialStateType
+  // state: initialStateType
+  user: { auth: boolean; userName: string }
+  resultMessaage: string
+  finish: boolean
+  gameRecord: [
+    { winner: 'USER'; count: number },
+    { winner: 'CPU'; count: number },
+    { winner: 'DRAW'; count: number }
+  ]
+  selectedItems: SelectItemsType[]
   dispatch: React.Dispatch<ActionType>
 }
 
 export const Marubatsu: React.FC<Props> = (props) => {
-  const selectCnt = props.state.selectedItems.filter((v) => v.item !== '')
-    .length
+  const selectCnt = props.selectedItems.filter((v) => v.item !== '').length
   const itemType = selectCnt % 2 === 0 ? 'circle' : 'cross'
 
   const choosePosition = (selected: boolean, index: number) => {
@@ -27,9 +35,8 @@ export const Marubatsu: React.FC<Props> = (props) => {
 
   useEffect(() => {
     const checkItemType = selectCnt % 2 !== 0 ? 'circle' : 'cross'
-    const result = checkResult(props.state.selectedItems, checkItemType)
-    const player =
-      checkItemType === 'circle' ? props.state.user.userName : 'CPU'
+    const result = checkResult(props.selectedItems, checkItemType)
+    const player = checkItemType === 'circle' ? props.user.userName : 'CPU'
     if (result) {
       props.dispatch(
         setResult(player + ' Won!', checkItemType == 'circle' ? 'USER' : 'CPU')
@@ -42,10 +49,7 @@ export const Marubatsu: React.FC<Props> = (props) => {
         while (choice < 0) {
           let random = Math.round(Math.random() * 10)
           if (random == 10) random = 0
-          if (
-            random !== 9 &&
-            props.state.selectedItems[random].selected === false
-          )
+          if (random !== 9 && props.selectedItems[random].selected === false)
             choice = random
         }
         choosePosition(false, choice)
@@ -56,19 +60,19 @@ export const Marubatsu: React.FC<Props> = (props) => {
   return (
     <Main>
       <Pane
-        finish={props.state.finish}
-        msg={props.state.resultMessaage}
+        finish={props.finish}
+        msg={props.resultMessaage}
         reset={() => reset()}
       />
       <Container className="Container">
         <h3>Results</h3>
         <GameRecords>
-          {props.state.gameRecord.map(
+          {props.gameRecord.map(
             (record: { winner: 'USER' | 'CPU' | 'DRAW'; count: number }) => (
               <Record key={record.winner}>
                 <div>
                   {record.winner == 'USER'
-                    ? props.state.user.userName
+                    ? props.user.userName
                     : record.winner}
                 </div>
                 <div>{'：' + record.count}</div>
@@ -78,19 +82,17 @@ export const Marubatsu: React.FC<Props> = (props) => {
         </GameRecords>
         <div>please click any one Box.</div>
         <Area>
-          {props.state.selectedItems.map(
-            (items: SelectItemsType, index: number) => (
-              <MarubatsuBox
-                key={index}
-                index={index}
-                choosePosition={choosePosition}
-                selected={items.selected}
-                itemType={items.itemType}
-              >
-                {items.item}
-              </MarubatsuBox>
-            )
-          )}
+          {props.selectedItems.map((items: SelectItemsType, index: number) => (
+            <MarubatsuBox
+              key={index}
+              index={index}
+              choosePosition={choosePosition}
+              selected={items.selected}
+              itemType={items.itemType}
+            >
+              {items.item}
+            </MarubatsuBox>
+          ))}
         </Area>
       </Container>
     </Main>

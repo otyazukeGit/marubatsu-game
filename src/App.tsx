@@ -40,7 +40,14 @@ function App(): ReactElement {
 
           <Auth>
             <Route path="/marubatsu" exact>
-              <Marubatsu state={state} dispatch={dispatch} />
+              <Marubatsu
+                user={state.user}
+                resultMessaage={state.resultMessaage}
+                finish={state.finish}
+                gameRecord={state.gameRecord}
+                selectedItems={state.selectedItems}
+                dispatch={dispatch}
+              />
             </Route>
           </Auth>
         </Switch>
