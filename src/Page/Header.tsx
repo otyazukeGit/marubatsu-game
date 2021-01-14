@@ -52,7 +52,7 @@ export const Header: React.FC<Props> = (props) => {
         >
           TOP
         </Button>
-        {!props.user.auth && (
+        {props.user.auth && (
           <Button
             aria-controls="simple-menu"
             aria-haspopup="true"
