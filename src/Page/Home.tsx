@@ -3,8 +3,7 @@ import styled from 'styled-components'
 import { PrimaryButton } from '../UIkit/PrimaryButton'
 import { useHistory } from 'react-router-dom'
 import { SimpleButton } from '../UIkit/SimpleButton'
-// import gameImg = "../../public/marubatsu_image.png"
-// import gameImg = "../../public/logo192.png"
+import gameImg from '../assets/game_image.png'
 
 type Props = {
   auth: boolean
@@ -50,6 +49,8 @@ export const Home: React.FC<Props> = (props) => {
           </ButtonArea>
         </React.Fragment>
       )}
+      <h3>{'<< Game Image >>'}</h3>
+      <img src={gameImg} alt={'game image'} width={300} />
     </Container>
   )
 }
